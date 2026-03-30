@@ -2055,21 +2055,101 @@
         </p>
       </div>
 
-      <div class="two-col">
-        <div class="info-card accent-red">
-          <div class="card-label">5+5 Pattern  Expect These</div>
+      <div class="two-col" style="align-items:flex-start;">
+        <div class="info-card accent-red" style="display:flex; flex-direction:column; gap:0;">
+          <div class="card-label">5+5 Pattern — Expect These</div>
           <h4>Full Explanation Questions</h4>
-          <p>Q: Explain the concept of a process and how it differs from a program. <em>[5]</em><br><br>
-          Q: Define context switch and describe the steps involved. <em>[5]</em><br><br>
-          Q: Draw and explain the process state diagram. <em>[5]</em></p>
+
+          <p style="margin-bottom:6px;">Q: Explain the concept of a process and how it differs from a program. <em>[5]</em></p>
+          <details style="margin-bottom:16px;">
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:#b91c1c;cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:8px;padding:11px 14px;background:#fff5f5;border:1px solid #fca5a5;border-left:3px solid #ef4444;border-radius:4px;font-size:13px;color:#7f1d1d;line-height:1.6;">
+              A <strong>process</strong> is a program in execution — an active entity that has a Program Counter, CPU registers, an Address Space (memory), and open I/O file descriptors. A <strong>program</strong> is a static, passive file on disk with no execution state. One program can give rise to many processes simultaneously. The OS bridges the two by loading the program, allocating resources, and creating the process abstraction.
+            </div>
+          </details>
+
+          <p style="margin-bottom:6px;">Q: Define context switch and describe the steps involved. <em>[5]</em></p>
+          <details style="margin-bottom:16px;">
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:#b91c1c;cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:8px;padding:11px 14px;background:#fff5f5;border:1px solid #fca5a5;border-left:3px solid #ef4444;border-radius:4px;font-size:13px;color:#7f1d1d;line-height:1.6;">
+              A <strong>context switch</strong> is the OS mechanism of switching the CPU from one process to another. Steps: (1) Stop executing process A. (2) Save A's CPU registers (PC, SP, etc.) into A's PCB. (3) Update A's state to Ready or Blocked. (4) Scheduling policy selects process B. (5) Update B's state to Running. (6) Load B's registers from B's PCB onto the CPU. (7) Resume execution at B's saved Program Counter. It is a <em>mechanism</em>, not a policy.
+            </div>
+          </details>
+
+          <p style="margin-bottom:6px;">Q: Draw and explain the process state diagram. <em>[5]</em></p>
+          <details>
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:#b91c1c;cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:8px;padding:11px 14px;background:#fff5f5;border:1px solid #fca5a5;border-left:3px solid #ef4444;border-radius:4px;font-size:13px;color:#7f1d1d;line-height:1.6;">
+              <em>Draw 5 ovals: New → Ready ↔ Running → Terminated. Running → Waiting → Ready.</em><br>
+              <strong>New:</strong> Being created (PCB initialized, memory allocated).<br>
+              <strong>Ready:</strong> Waiting in queue for CPU; capable of running immediately.<br>
+              <strong>Running:</strong> Currently executing instructions on the CPU (only state where instructions execute).<br>
+              <strong>Waiting/Blocked:</strong> Suspended pending an I/O event; cannot run even if CPU is free.<br>
+              <strong>Terminated:</strong> Finished execution; resources freed (may briefly be a zombie).
+            </div>
+          </details>
         </div>
-        <div class="info-card accent-blue">
-          <div class="card-label">3+3+4 Pattern  Expect These</div>
+
+        <div class="info-card accent-blue" style="display:flex; flex-direction:column; gap:0;">
+          <div class="card-label">3+3+4 Pattern — Expect These</div>
           <h4>Multi-part Questions</h4>
-          <p>Q: (a) Define PCB and list its fields. <em>[3]</em> (b) What is a zombie state? <em>[3]</em> (c) Trace process states for two processes with I/O. <em>[4]</em><br><br>
-          Q: (a) Define mechanism. <em>[3]</em> (b) Define policy. <em>[3]</em> (c) Classify: context switch, round-robin scheduling, demand paging. <em>[4]</em></p>
+
+          <p style="margin-bottom:4px;font-size:13.5px;"><strong>Q Set 1:</strong></p>
+          <p style="margin-bottom:4px;">(a) Define PCB and list its fields. <em>[3]</em></p>
+          <details style="margin-bottom:8px;">
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:var(--accent2);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:6px;padding:10px 14px;background:#eff6ff;border:1px solid #93c5fd;border-left:3px solid #3b82f6;border-radius:4px;font-size:13px;color:#1e3a5f;line-height:1.6;">
+              A <strong>PCB (Process Control Block)</strong> is a kernel data structure tracking one process. Fields: <strong>state</strong> (Running/Ready/Blocked), <strong>context</strong> (saved registers PC/SP), <strong>mem</strong> (address space pointer), <strong>parent</strong> (creator process), <strong>pid</strong> (unique numeric ID).
+            </div>
+          </details>
+
+          <p style="margin-bottom:4px;">(b) What is a zombie state? <em>[3]</em></p>
+          <details style="margin-bottom:8px;">
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:var(--accent2);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:6px;padding:10px 14px;background:#eff6ff;border:1px solid #93c5fd;border-left:3px solid #3b82f6;border-radius:4px;font-size:13px;color:#1e3a5f;line-height:1.6;">
+              A <strong>zombie</strong> is a process that has called <code>exit()</code> and fully finished execution, but whose PCB entry persists because its parent has not yet called <code>wait()</code> to collect the exit status. It holds no memory or CPU — only a PID and exit code. Zombies accumulate if the parent never calls <code>wait()</code>, eventually exhausting the process table.
+            </div>
+          </details>
+
+          <p style="margin-bottom:4px;">(c) Trace process states for two processes with I/O. <em>[4]</em></p>
+          <details style="margin-bottom:20px;">
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:var(--accent2);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:6px;padding:10px 14px;background:#eff6ff;border:1px solid #93c5fd;border-left:3px solid #3b82f6;border-radius:4px;font-size:13px;color:#1e3a5f;line-height:1.7;">
+              T1: A=Run, B=Ready &nbsp;·&nbsp; T2: A=Run, B=Ready &nbsp;·&nbsp; T3: A=Run (initiates I/O), B=Ready<br>
+              T4: A=Blocked, B=Run &nbsp;·&nbsp; T5: A=Blocked, B=Run &nbsp;·&nbsp; T6: A=Blocked (I/O done→Ready), B=Run<br>
+              T7: A=Ready, B=Run &nbsp;·&nbsp; T8: A=Ready, B=Run (done) &nbsp;·&nbsp; T9: A=Run &nbsp;·&nbsp; T10: A=Run (done)
+            </div>
+          </details>
+
+          <p style="margin-bottom:4px;font-size:13.5px;"><strong>Q Set 2:</strong></p>
+          <p style="margin-bottom:4px;">(a) Define mechanism. <em>[3]</em></p>
+          <details style="margin-bottom:8px;">
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:var(--accent2);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:6px;padding:10px 14px;background:#eff6ff;border:1px solid #93c5fd;border-left:3px solid #3b82f6;border-radius:4px;font-size:13px;color:#1e3a5f;line-height:1.6;">
+              A <strong>mechanism</strong> is a low-level OS protocol that defines <em>how</em> an operation is performed. It contains no decision logic about <em>when</em> or <em>why</em> to act. Example: the context switch mechanism executes the register save/restore procedure, but makes no decision about which process to run next.
+            </div>
+          </details>
+
+          <p style="margin-bottom:4px;">(b) Define policy. <em>[3]</em></p>
+          <details style="margin-bottom:8px;">
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:var(--accent2);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:6px;padding:10px 14px;background:#eff6ff;border:1px solid #93c5fd;border-left:3px solid #3b82f6;border-radius:4px;font-size:13px;color:#1e3a5f;line-height:1.6;">
+              A <strong>policy</strong> is a high-level algorithm that makes decisions about resource allocation — the <em>which</em> and <em>when</em>. It relies on mechanisms to carry out its decisions. Example: round-robin scheduling decides which process runs next, then invokes the context switch mechanism to enforce that choice.
+            </div>
+          </details>
+
+          <p style="margin-bottom:4px;">(c) Classify: context switch, round-robin scheduling, demand paging. <em>[4]</em></p>
+          <details>
+            <summary style="font-size:11px;font-weight:600;font-family:var(--mono);color:var(--accent2);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;">Show Answer</summary>
+            <div style="margin-top:6px;padding:10px 14px;background:#eff6ff;border:1px solid #93c5fd;border-left:3px solid #3b82f6;border-radius:4px;font-size:13px;color:#1e3a5f;line-height:1.6;">
+              <strong>Context switch</strong> → <em>Mechanism</em> (it's the procedure of saving/restoring registers).<br>
+              <strong>Round-robin scheduling</strong> → <em>Policy</em> (decides which process gets CPU next, in order).<br>
+              <strong>Demand paging</strong> → <em>Mechanism</em> (implements how pages are loaded; the policy decides which pages to evict).
+            </div>
+          </details>
         </div>
       </div>
+
 
     </section>
 
