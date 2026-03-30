@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4 — The Abstraction: The Process</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --surface: #fdfaf5;
+    --surface2: #ede8df;
+    --ink: #1a1612;
+    --ink2: #4a4540;
+    --ink3: #8a837a;
+    --accent: #c0392b;
+    --accent2: #2c5f8a;
+    --accent3: #1a6b45;
+    --accent4: #7a4f1a;
+    --gold: #c8922a;
+    --border: #d8d0c4;
+    --border2: #bfb8ae;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Fraunces', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* ── BACKGROUND TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='1' height='1' fill='%231a1612' fill-opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── SIDEBAR NAV ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 220px;
+    background: var(--ink);
+    padding: 40px 0;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 0 24px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+  }
+
+  .sidebar-logo .course {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-logo .title {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  .sidebar-logo .chapter {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  .nav-section {
+    padding: 0 16px;
+    margin-bottom: 8px;
+  }
+
+  .nav-section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    padding: 0 8px;
+    margin-bottom: 4px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 7px 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.15s;
+    font-family: var(--sans);
+    font-weight: 300;
+    border-left: 2px solid transparent;
+    margin-bottom: 1px;
+  }
+
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .nav-link.active {
+    color: var(--gold);
+    border-left-color: var(--gold);
+    background: rgba(200,146,42,0.08);
+  }
+
+  .nav-link .num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    margin-right: 6px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    margin-left: 220px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 80px 80px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '{ }';
+    position: absolute;
+    right: 60px;
+    bottom: -30px;
+    font-family: var(--mono);
+    font-size: 200px;
+    color: rgba(255,255,255,0.03);
+    font-weight: 700;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    max-width: 560px;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .hero-meta-item .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .hero-meta-item .val {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+  }
+
+  /* ── CONTENT AREA ── */
+  .content {
+    padding: 0 80px 100px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 72px 0 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 64px;
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-badge .badge-num {
+    background: var(--ink);
+    color: var(--gold);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.5vw, 38px);
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+    margin-top: 36px;
+  }
+
+  h3:first-child { margin-top: 0; }
+
+  p {
+    color: var(--ink2);
+    margin-bottom: 16px;
+    font-weight: 300;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  strong { color: var(--ink); font-weight: 500; }
+
+  /* ── LEAD PARAGRAPH ── */
+  .lead {
+    font-size: 18px;
+    color: var(--ink2);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--serif);
+    font-style: italic;
+  }
+
+  /* ── TWO COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    position: relative;
+  }
+
+  .info-card .card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .info-card h4 {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .info-card p { font-size: 14px; margin-bottom: 0; }
+
+  .info-card.accent-red { border-top: 3px solid var(--accent); }
+  .info-card.accent-red .card-label { color: var(--accent); }
+
+  .info-card.accent-blue { border-top: 3px solid var(--accent2); }
+  .info-card.accent-blue .card-label { color: var(--accent2); }
+
+  .info-card.accent-green { border-top: 3px solid var(--accent3); }
+  .info-card.accent-green .card-label { color: var(--accent3); }
+
+  .info-card.accent-gold { border-top: 3px solid var(--gold); }
+  .info-card.accent-gold .card-label { color: var(--gold); }
+
+  .info-card.accent-brown { border-top: 3px solid var(--accent4); }
+  .info-card.accent-brown .card-label { color: var(--accent4); }
+
+  /* ── BIG SPLIT CARD ── */
+  .split-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 28px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .split-side {
+    padding: 32px;
+  }
+
+  .split-side + .split-side {
+    border-left: 1px solid var(--border);
+  }
+
+  .split-side .side-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .split-side h4 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .split-side p { font-size: 14px; }
+
+  .split-side ul {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .split-side ul li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--ink2);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    font-weight: 300;
+  }
+
+  .split-side ul li:last-child { border-bottom: none; }
+
+  .split-side ul li::before {
+    content: '—';
+    color: var(--ink3);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── DEFINITION BOX ── */
+  .definition {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin: 28px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .definition::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-family: var(--serif);
+    font-size: 140px;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .definition .def-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .definition p {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.55;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .definition strong { color: var(--gold); font-weight: 600; }
+
+  /* ── ANALOGY BOX ── */
+  .analogy {
+    background: #fffef5;
+    border: 1px solid #e8dfa0;
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+
+  .analogy .a-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--accent4);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .analogy p {
+    font-size: 14px;
+    color: var(--ink2);
+    margin: 0;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* ── EXAM CALLOUT ── */
+  .exam {
+    background: #fff5f5;
+    border: 1px solid #fca5a5;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+
+  .exam .e-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .exam p { font-size: 14px; color: #7f1d1d; margin: 0; }
+
+  /* ── TIP BOX ── */
+  .tip {
+    background: #f0faf5;
+    border: 1px solid #a7d7bb;
+    border-left: 4px solid var(--accent3);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+
+  .tip .t-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--accent3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .tip p { font-size: 14px; color: #14532d; margin: 0; }
+
+  /* ── STEP LIST ── */
+  .step-list {
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .step-item {
+    display: flex;
+    gap: 20px;
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .step-item:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-body h4 {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .step-body p { font-size: 14px; margin: 0; }
+
+  /* ── CODE BLOCK ── */
+  .code-wrap {
+    margin: 24px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border2);
+  }
+
+  .code-header {
+    background: #2d2926;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .code-dots { display: flex; gap: 6px; }
+  .code-dots span { width: 11px; height: 11px; border-radius: 50%; }
+  .code-dots span:nth-child(1) { background: #ff5f57; }
+  .code-dots span:nth-child(2) { background: #febc2e; }
+  .code-dots span:nth-child(3) { background: #28c840; }
+
+  .code-filename {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+  }
+
+  pre {
+    background: #1e1b18;
+    padding: 24px 28px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    line-height: 1.85;
+    overflow-x: auto;
+    color: #c8c0b4;
+  }
+
+  .kw  { color: #e06c75; }
+  .tp  { color: #61afef; }
+  .fd  { color: #e5c07b; }
+  .cm  { color: #5c6370; font-style: italic; }
+  .st  { color: #98c379; }
+  .nm  { color: #d19a66; }
+
+  /* ── STATE DIAGRAM ── */
+  .state-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px;
+    margin: 28px 0;
+    overflow-x: auto;
+  }
+
+  /* ── INLINE TAG ── */
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .tag-r { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+  .tag-b { background: #eff6ff; color: #1e40af; border: 1px solid #93c5fd; }
+  .tag-g { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
+  .tag-y { background: #fefce8; color: #854d0e; border: 1px solid #fde047; }
+  .tag-p { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 24px 0;
+  }
+
+  .table-title {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink3);
+    text-transform: uppercase;
+    background: var(--surface2);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    padding: 10px 18px;
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border2);
+    font-weight: 500;
+  }
+
+  td {
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    color: var(--ink2);
+    font-weight: 300;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .td-run { color: #b45309; font-weight: 500; font-family: var(--mono); font-size: 12px; }
+  .td-ready { color: #1e40af; font-family: var(--mono); font-size: 12px; }
+  .td-blocked { color: #6b7280; font-family: var(--mono); font-size: 12px; }
+  .td-note { color: var(--accent4); font-size: 12px; font-style: italic; }
+
+  /* ── HORIZONTAL RULE ── */
+  .fancy-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0;
+  }
+
+  .fancy-divider::before, .fancy-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .fancy-divider span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── BIG NUMBER ── */
+  .big-number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 28px 0;
+  }
+
+  .big-num-item {
+    background: var(--surface);
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .big-num-item .the-num {
+    font-family: var(--serif);
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .big-num-item .the-label {
+    font-size: 13px;
+    color: var(--ink3);
+    font-weight: 300;
+  }
+
+  /* ── MEMORY LAYOUT VIS ── */
+  .memory-vis {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 24px 0;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .mem-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mem-row:last-child { border-bottom: none; }
+
+  .mem-addr {
+    width: 90px;
+    padding: 12px 14px;
+    background: #2d2926;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    border-right: 1px solid #3d3530;
+  }
+
+  .mem-label {
+    flex: 1;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .mem-desc {
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink3);
+    font-weight: 300;
+    min-width: 200px;
+  }
+
+  .mem-stack { background: #fdf0e8; color: #9a3412; }
+  .mem-heap  { background: #fdf4e8; color: #92400e; }
+  .mem-data  { background: #f0f9ff; color: #1e40af; }
+  .mem-text  { background: #f0fdf4; color: #166534; }
+
+  /* ── PROCESS STATE VIS ── */
+  .state-vis {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 28px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .sv-state {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    text-align: center;
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+
+  .sv-state.running {
+    background: #fefce8;
+    border-color: #fde047;
+  }
+
+  .sv-state .sv-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+
+  .sv-state.running .sv-name { color: #854d0e; }
+  .sv-state:not(.running) .sv-name { color: var(--ink3); }
+
+  .sv-state .sv-desc {
+    font-size: 12px;
+    color: var(--ink3);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .sv-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0 10px;
+    flex-shrink: 0;
+  }
+
+  .sv-arrow svg { opacity: 0.4; }
+
+  .sv-arrow .sv-alabel {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--ink3);
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* ── SCROLL ANIMATION ── */
+  .section { opacity: 1; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .hero, .content { padding-left: 24px; padding-right: 24px; }
+    .two-col, .three-col, .split-card, .big-number-grid { grid-template-columns: 1fr; }
+    .split-side + .split-side { border-left: none; border-top: 1px solid var(--border); }
+    .mem-desc { display: none; }
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 220px;
+    right: 0;
+    height: 3px;
+    background: transparent;
+    z-index: 200;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  /* Print-friendly */
+  @media print {
+    .sidebar, .progress-bar { display: none; }
+    .main { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="course">OS: Three Easy Pieces</div>
+    <div class="title">Virtualizing<br>the CPU</div>
+    <div class="chapter">Chapter 4</div>
+  </div>
+  <nav>
+    <div class="nav-section">
+      <div class="nav-section-label">Contents</div>
+      <a class="nav-link active" href="#intro"><span class="num">01</span> Introduction</a>
+      <a class="nav-link" href="#s1"><span class="num">02</span> What is a Process?</a>
+      <a class="nav-link" href="#s2"><span class="num">03</span> CPU Virtualization</a>
+      <a class="nav-link" href="#s3"><span class="num">04</span> Mechanism vs Policy</a>
+      <a class="nav-link" href="#s4"><span class="num">05</span> Machine State</a>
+      <a class="nav-link" href="#s5"><span class="num">06</span> Process API</a>
+      <a class="nav-link" href="#s6"><span class="num">07</span> Process Creation</a>
+      <a class="nav-link" href="#s7"><span class="num">08</span> Process States</a>
+      <a class="nav-link" href="#s8"><span class="num">09</span> Tracing States</a>
+      <a class="nav-link" href="#s9"><span class="num">10</span> The PCB</a>
+      <a class="nav-link" href="#s10"><span class="num">11</span> Zombie State</a>
+      <a class="nav-link" href="#summary"><span class="num">★</span> Exam Summary</a>
+    </div>
+  </nav>
+</aside>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero" id="intro">
+    <div class="hero-tag">Operating Systems · Virtualizing the CPU</div>
+    <h1>The Abstraction:<br><em>The Process</em></h1>
+    <p class="hero-sub">A complete visual study guide to Chapter 4 — everything you need to understand processes from first principles, with analogies, diagrams, and exam notes.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><div class="label">Based on</div><div class="val">OS: Three Easy Pieces</div></div>
+      <div class="hero-meta-item"><div class="label">Topics covered</div><div class="val">10 core concepts</div></div>
+      <div class="hero-meta-item"><div class="label">Exam highlights</div><div class="val">Zombie, PCB, States, Context Switch</div></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- SECTION 1: WHAT IS A PROCESS -->
+    <section class="section" id="s1">
+      <div class="section-badge"><span class="badge-num">§ 4.0</span> Core Concept</div>
+      <h2>What is a Process?</h2>
+
+      <p class="lead">A process is simply a running program. This one-sentence definition is the foundation of everything in this chapter.</p>
+
+      <p>Every single app on your computer — your browser, music player, game — exists first as a <strong>program</strong>: a file sitting on your hard drive containing instructions. That file does absolutely nothing on its own. It's passive, static, lifeless bytes. The moment you run it, the Operating System wakes it up and transforms it into a <strong>process</strong> — a living, active entity that uses the CPU, consumes memory, and does actual work.</p>
+
+      <div class="split-card">
+        <div class="split-side">
+          <div class="side-label" style="color: var(--ink3);">Program — Passive</div>
+          <h4>The Recipe</h4>
+          <ul>
+            <li>Lifeless static bytes stored on disk</li>
+            <li>Does absolutely nothing on its own</li>
+            <li>Can be copied, deleted, shared</li>
+            <li>One program file exists once on disk</li>
+            <li>Like a recipe sitting in a cookbook</li>
+          </ul>
+        </div>
+        <div class="split-side">
+          <div class="side-label" style="color: var(--gold);">Process — Active</div>
+          <h4>The Cooking</h4>
+          <ul>
+            <li>A running entity with dynamic state</li>
+            <li>Actively executing instructions on CPU</li>
+            <li>Uses real memory, real CPU time</li>
+            <li>One program can spawn many processes</li>
+            <li>Like actually cooking from that recipe</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="definition">
+        <div class="def-label">Definition</div>
+        <p>A <strong>process</strong> is simply a running program. It is the OS's most fundamental abstraction — the illusion that each program has the machine to itself.</p>
+      </div>
+
+      <div class="analogy">
+        <div class="a-label">Real-world analogy</div>
+        <p>A program is like a music score — sheets of paper with notes on them. A process is the orchestra actually performing that score. The score sits still; the performance is alive, dynamic, and real-time. You can have multiple orchestras perform the same score simultaneously — just like you can open multiple browser windows from one program.</p>
+      </div>
+
+      <p>This distinction matters because the OS manages <em>processes</em>, not programs. When you press Ctrl+Alt+Del and see the Task Manager, every row is a process — not a program file. Chrome might show 10 rows because it runs one process per tab for safety and performance.</p>
+    </section>
+
+    <!-- SECTION 2: CPU VIRTUALIZATION -->
+    <section class="section" id="s2">
+      <div class="section-badge"><span class="badge-num">§ 4.1</span> The Core Problem</div>
+      <h2>CPU Virtualization — The Illusion of Many CPUs</h2>
+
+      <p class="lead">How can 200 programs run "simultaneously" on a machine with only 8 CPU cores? The answer is one of the most elegant tricks in computer science.</p>
+
+      <p>Your computer physically has a limited number of CPU cores — maybe 4, 8, or 16. Yet right now you might have a browser, a music player, a code editor, an antivirus, and dozens of background services all "running" at once. How?</p>
+
+      <p>The OS creates an <strong>illusion</strong>. It switches between processes so rapidly — thousands of times per second — that it <em>feels</em> like everything is happening simultaneously. This technique is called <strong>time sharing</strong>, and it is the fundamental mechanism behind CPU virtualization.</p>
+
+      <div class="analogy">
+        <div class="a-label">Analogy — the busy chef</div>
+        <p>Imagine a chef at a busy restaurant. They don't cook one dish start-to-finish before starting the next. Instead: start the pasta boiling, go chop vegetables, flip the steak, stir the sauce, check the pasta, and so on. To the diners, all dishes are being prepared "at once" — but the chef is just switching tasks very quickly. The OS is that chef. Processes are the dishes.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="info-card accent-blue">
+          <div class="card-label">Time Sharing — CPU</div>
+          <h4>How the CPU is shared</h4>
+          <p>The OS runs process A for a tiny time slice (e.g. 10 milliseconds), saves its state, then runs process B for 10ms, then C... When it comes back to A, it restores its state and continues. Each process thinks it has the whole CPU. Cost: a small performance overhead on each switch.</p>
+        </div>
+        <div class="info-card accent-brown">
+          <div class="card-label">Space Sharing — Disk</div>
+          <h4>How disk is shared differently</h4>
+          <p>Disk space is divided physically. Each file owns its sectors exclusively — there is no switching or sharing. File A's blocks belong to A until deleted. This is fundamentally different from time sharing — it is about dividing space, not time.</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="t-label">Key insight</div>
+        <p>Virtualizing the CPU means making each process <em>believe</em> it has a dedicated CPU, when in reality it shares one physical CPU with many others. This is the OS's greatest magic trick.</p>
+      </div>
+
+      <p>The challenge is doing this efficiently and fairly. The OS must decide: which process runs next? For how long? What happens when a process is waiting for disk I/O? These are questions of <strong>scheduling policy</strong>, which we'll cover in Chapter 7. For now, Chapter 4 just introduces the abstraction.</p>
+    </section>
+
+    <!-- SECTION 3: MECHANISM VS POLICY -->
+    <section class="section" id="s3">
+      <div class="section-badge"><span class="badge-num">§ 4.1</span> OS Design Philosophy</div>
+      <h2>Mechanisms vs Policies</h2>
+
+      <p class="lead">One of the most important design principles in operating systems: separate what you can do from what you decide to do.</p>
+
+      <p>OS designers discovered early on that mixing implementation details with decision-making logic creates fragile, hard-to-change systems. The solution is to rigorously separate two things:</p>
+
+      <div class="two-col">
+        <div class="info-card accent-green">
+          <div class="card-label">Mechanism — "The HOW"</div>
+          <h4>Low-level machinery</h4>
+          <p>A mechanism is the <em>protocol or procedure</em> for doing something. It knows <strong>how</strong> to perform an action, but makes no decisions about <strong>when</strong> or <strong>why</strong>.</p>
+          <br>
+          <p><strong>Example:</strong> The <em>context switch</em> is a mechanism. It knows the exact steps to save process A's CPU registers to memory and load process B's registers from memory. It doesn't decide whether to switch — it just knows how.</p>
+        </div>
+        <div class="info-card accent-gold">
+          <div class="card-label">Policy — "The WHICH"</div>
+          <h4>High-level intelligence</h4>
+          <p>A policy is the <em>algorithm or strategy</em> for making decisions. It decides <strong>which</strong> process runs and <strong>when</strong>, using mechanisms to enforce those decisions.</p>
+          <br>
+          <p><strong>Example:</strong> The <em>scheduling policy</em> is a policy. It decides: run the shortest job next? Run the highest-priority process? Round-robin between all? It uses the context switch mechanism to implement its choice.</p>
+        </div>
+      </div>
+
+      <div class="analogy">
+        <div class="a-label">Analogy — traffic system</div>
+        <p>The traffic <em>light</em> is a mechanism — it knows how to turn red, yellow, and green. The <em>timing controller</em> is the policy — it decides how long each phase lasts based on traffic density. You can upgrade the controller (smarter timing algorithm) without replacing the lights. You can install different lights without rewriting the controller logic. They're independent.</p>
+      </div>
+
+      <div class="definition">
+        <div class="def-label">Design Tip</div>
+        <p>Modular separation of mechanisms and policies allows <strong>policies to change without rewriting low-level mechanisms</strong>. This is why OS researchers can experiment with dozens of scheduling algorithms without touching the context switch code.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: MACHINE STATE -->
+    <section class="section" id="s4">
+      <div class="section-badge"><span class="badge-num">§ 4.1</span> What a Process Contains</div>
+      <h2>The Machine State — What's Inside a Process?</h2>
+
+      <p class="lead">To understand what the OS must save and restore when switching between processes, you need to know exactly what a process "owns" at any given moment.</p>
+
+      <p>A process is more than just running code. It has three fundamental components — think of these as the process's "possessions." To pause a process and resume it later perfectly (as if it never stopped), the OS must save all three completely and restore them exactly.</p>
+
+      <div class="three-col">
+        <div class="info-card accent-blue">
+          <div class="card-label">1 · Memory</div>
+          <h4>Address Space</h4>
+          <p>The chunk of RAM that belongs exclusively to this process. Contains its code (machine instructions), global variables, the stack, and the heap. No other process can read or write this memory — it is <strong>private and isolated</strong>.</p>
+        </div>
+        <div class="info-card accent-gold">
+          <div class="card-label">2 · CPU State</div>
+          <h4>Registers</h4>
+          <p>The CPU's current working state for this process. The most important are:
+          <br><br>
+          <strong>Program Counter (PC):</strong> Which instruction to execute next — like a bookmark in the code.
+          <br><br>
+          <strong>Stack Pointer (SP):</strong> Points to the top of the call stack.
+          <br><br>
+          Plus many general-purpose registers holding temporary values.</p>
+        </div>
+        <div class="info-card accent-green">
+          <div class="card-label">3 · I/O State</div>
+          <h4>I/O Information</h4>
+          <p>A list of open file descriptors — the channels to the outside world that this process has open:
+          <br><br>
+          <strong>fd 0:</strong> stdin (keyboard input)
+          <br><strong>fd 1:</strong> stdout (screen output)
+          <br><strong>fd 2:</strong> stderr (error output)
+          <br><strong>fd 3+:</strong> any files/sockets the program opened</p>
+        </div>
+      </div>
+
+      <div class="analogy">
+        <div class="a-label">Analogy — pausing a video game</div>
+        <p>When you save a video game and come back later, the game must restore: your position (address space), what buttons you were pressing (registers), and which inventory items were open (I/O state). If it only saves your position but forgets your health and inventory, you can't resume seamlessly. The OS does exactly this — a perfect save and restore of all three components — on every context switch.</p>
+      </div>
+
+      <h3>Memory Layout Visualization</h3>
+      <p>Inside the address space, memory is organized in a specific layout:</p>
+
+      <div class="memory-vis">
+        <div class="mem-row">
+          <div class="mem-addr">High addr</div>
+          <div class="mem-label mem-stack">Stack ↓</div>
+          <div class="mem-desc">Local variables, function parameters, return addresses. Grows downward. Fixed size.</div>
+        </div>
+        <div class="mem-row">
+          <div class="mem-addr" style="background:#1e1b18; color: rgba(255,255,255,0.15);">···</div>
+          <div class="mem-label" style="background:#f9fafb; color: #9ca3af; font-size:12px; font-style:italic;">free space</div>
+          <div class="mem-desc">Space between stack and heap (can shrink or grow)</div>
+        </div>
+        <div class="mem-row">
+          <div class="mem-addr"></div>
+          <div class="mem-label mem-heap">Heap ↑</div>
+          <div class="mem-desc">Dynamic allocation (malloc/new). Grows upward. Resizable at runtime.</div>
+        </div>
+        <div class="mem-row">
+          <div class="mem-addr"></div>
+          <div class="mem-label mem-data">Data segment</div>
+          <div class="mem-desc">Global and static variables. Fixed size, set at compile time.</div>
+        </div>
+        <div class="mem-row">
+          <div class="mem-addr">Low addr</div>
+          <div class="mem-label mem-text">Text segment</div>
+          <div class="mem-desc">The actual program code (machine instructions). Read-only. Loaded from disk.</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="t-label">Why this matters</div>
+        <p>To pause process A and resume it later, the OS saves its registers (including PC and SP) into the PCB. The address space stays in memory (or is saved to disk). The file descriptors are tracked in the kernel. When A resumes, everything is restored — it has no idea it was ever paused.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: PROCESS API -->
+    <section class="section" id="s5">
+      <div class="section-badge"><span class="badge-num">§ 4.2</span> Process API</div>
+      <h2>The Process API — 5 Things Every OS Must Provide</h2>
+
+      <p class="lead">Every operating system — Windows, Linux, macOS — must provide these five fundamental operations for managing processes.</p>
+
+      <p>An API (Application Programming Interface) is a set of functions that programs can call to ask the OS to do things. For processes, the OS must provide at minimum:</p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Create — Launch a new process</h4>
+            <p>The OS must be able to create new processes. When you double-click an app, the OS runs a "create process" call. In Unix/Linux, this is done via <span class="tag tag-b">fork()</span> + <span class="tag tag-b">exec()</span>. The shell uses this constantly — every command you type creates a new process.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Destroy — Forcefully terminate a process</h4>
+            <p>The OS must be able to kill a process that refuses to stop on its own — a crashed app, an infinite loop, or malicious code. In Unix: <span class="tag tag-r">kill()</span>. In Windows: TerminateProcess(). This is the "force quit" of the OS world. Most processes exit on their own via <span class="tag tag-b">exit()</span>, but having a forced destroy option is essential.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Wait — Pause until an event completes</h4>
+            <p>A parent process often needs to wait for its child process to finish before proceeding. In Unix: <span class="tag tag-b">wait()</span> or <span class="tag tag-b">waitpid()</span>. Example: a shell running a command waits for that command to finish before showing the next prompt. This is also how the parent cleans up zombie processes (more on this later).</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Control — Suspend and resume</h4>
+            <p>The OS must be able to temporarily pause a process (suspend) and later continue it (resume). In Unix, signals like <span class="tag tag-y">SIGSTOP</span> and <span class="tag tag-y">SIGCONT</span> do this. Ctrl+Z in a terminal suspends a process — it moves from Running to a stopped state without being killed.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Status — Query information about a process</h4>
+            <p>Get information about a process's state: is it running, sleeping, stopped? How much CPU has it used? What's its PID? In Unix: <span class="tag tag-b">ps</span>, <span class="tag tag-b">top</span>, <span class="tag tag-b">getpid()</span>. This is what Task Manager and Activity Monitor use to show you the process list.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="t-label">Design tip</div>
+        <p>The book notes that a good OS provides these APIs as a clean, simple interface — but the implementation underneath (the mechanism) can be very complex. The user/programmer should never need to know those details.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 6: PROCESS CREATION -->
+    <section class="section" id="s6">
+      <div class="section-badge"><span class="badge-num">§ 4.3</span> How Processes Are Born</div>
+      <h2>Process Creation — From Disk to Running</h2>
+
+      <p class="lead">What actually happens between you double-clicking an app and the app appearing on screen? The OS follows a precise sequence of steps every single time.</p>
+
+      <p>Creating a process is not instantaneous. The OS must carefully set up everything the process needs before it can run a single instruction of your code. Here are the steps in order:</p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Load code and data from disk into memory</h4>
+            <p>The OS reads the executable file (e.g. <code>.exe</code> on Windows, ELF binary on Linux) from the hard drive and copies its bytes into the process's address space in RAM. This is essential — the CPU can only execute instructions from RAM, not directly from disk.</p>
+            <br>
+            <p><strong>Eager loading (old way):</strong> Load all code and data upfront before starting. Simple but slow for large programs.</p>
+            <p><strong>Lazy loading (modern way):</strong> Load pages from disk only when the process actually tries to access them. This is called <em>demand paging</em> and makes programs start much faster — you only pay for what you use.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Allocate the runtime stack</h4>
+            <p>The OS creates the process's <strong>stack</strong> — a fixed-size memory region for function calls. The stack holds: local variables (e.g. <code>int x = 5</code> inside a function), function parameters, and return addresses (where to go back to after a function finishes).</p>
+            <br>
+            <p>The OS also initializes the stack with the program's command-line arguments (<code>argc</code> and <code>argv</code>). When you type <code>ls -la /home</code>, the shell creates a process with <code>argc=3</code> and <code>argv=["ls", "-la", "/home"]</code> on the stack.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Allocate the heap</h4>
+            <p>The OS sets up the process's <strong>heap</strong> — a memory region for dynamic allocation. Unlike the stack (which has a fixed size), the heap can grow and shrink at runtime. When your program calls <code>malloc()</code> in C or <code>new</code> in C++/Java, it requests memory from the heap.</p>
+            <br>
+            <p>The heap starts small (often just a few pages) and expands as the program requests more. The OS provides the <code>brk()</code> / <code>sbrk()</code> system call to grow it.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Set up I/O — open standard file descriptors</h4>
+            <p>Before your code runs a single line, the OS opens three file descriptors automatically:</p>
+            <br>
+            <p><span class="tag tag-b">fd 0 — stdin</span> — Standard input. Connected to the keyboard (or a pipe if you redirect input). Your program reads user input from here.</p>
+            <p><span class="tag tag-g">fd 1 — stdout</span> — Standard output. Connected to the terminal (or a file if you redirect). <code>printf()</code> and <code>cout</code> write here.</p>
+            <p><span class="tag tag-r">fd 2 — stderr</span> — Standard error. Also connected to the terminal. Error messages go here — this way you can redirect stdout to a file without losing error messages.</p>
+            <br>
+            <p>This is why you can immediately use <code>printf()</code> without opening any files — the OS already did it for you.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Jump to main() — the process starts running</h4>
+            <p>With everything set up, the OS transfers control to the process's <strong>entry point</strong>: the <code>main()</code> function. The CPU's Program Counter is set to the address of <code>main()</code>, and the process begins executing.</p>
+            <br>
+            <p>At this point, the OS steps back. Your code is running. The OS still watches over it (handling system calls, page faults, etc.) but the process is now alive and in control of its own execution.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam">
+        <div class="e-label">Exam note</div>
+        <p>You may be asked about eager vs lazy loading. Eager = load everything before starting (simple, but wastes time for large programs). Lazy = load pages on demand as needed (fast start, used by all modern OSes via demand paging). Modern OSes always use lazy loading.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 7: PROCESS STATES -->
+    <section class="section" id="s7">
+      <div class="section-badge"><span class="badge-num">§ 4.4</span> Process Lifecycle</div>
+      <h2>Process States — Where is a Process at Any Moment?</h2>
+
+      <p class="lead">A process is not always running. At any given moment, it is in one of several states. Understanding these states is the key to understanding how the OS manages processes.</p>
+
+      <h3>The Three Core States</h3>
+
+      <div class="three-col">
+        <div class="info-card accent-gold" style="background:#fefce8; border-top-color: #854d0e;">
+          <div class="card-label" style="color:#854d0e;">State 1</div>
+          <h4>Running</h4>
+          <p>The process is <strong>actively executing instructions</strong> on the CPU right now. The CPU's Program Counter points to this process's code. Only <em>one process per CPU core</em> can be in the Running state at a time. This is the only state where actual work gets done.</p>
+        </div>
+        <div class="info-card accent-blue">
+          <div class="card-label">State 2</div>
+          <h4>Ready</h4>
+          <p>The process is <strong>ready and willing to run</strong> but the OS has not yet scheduled it. It's waiting in a ready queue for its turn on the CPU. It could run right now if given the CPU — there's just nothing stopping it except the scheduler hasn't chosen it yet.</p>
+        </div>
+        <div class="info-card" style="border-top: 3px solid var(--ink3);">
+          <div class="card-label" style="color: var(--ink3);">State 3</div>
+          <h4>Blocked</h4>
+          <p>The process is <strong>waiting for an external event</strong> — typically I/O — to complete before it can proceed. A blocked process cannot make progress even if given the CPU, because it's waiting for something outside the CPU (e.g., a disk read, network packet, keyboard input).</p>
+        </div>
+      </div>
+
+      <div class="analogy">
+        <div class="a-label">Analogy — airport security line</div>
+        <p><strong>Running</strong> = you're at the scanner being processed. <strong>Ready</strong> = you're standing in the queue, fully prepared, just waiting your turn. <strong>Blocked</strong> = you stepped aside because you forgot to take off your shoes — you're not ready to be processed yet, so you're not in the queue. Once you're ready, you rejoin the queue (Ready state).</p>
+      </div>
+
+      <div class="state-vis">
+        <div class="sv-state">
+          <div class="sv-name">NEW</div>
+          <div class="sv-desc">Process is being created</div>
+        </div>
+        <div class="sv-arrow">
+          <svg width="30" height="20" viewBox="0 0 30 20"><path d="M2 10h22M20 4l8 6-8 6" stroke="#8a837a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="sv-alabel">Admit</div>
+        </div>
+        <div class="sv-state">
+          <div class="sv-name">READY</div>
+          <div class="sv-desc">Waiting for CPU time</div>
+        </div>
+        <div class="sv-arrow">
+          <svg width="30" height="20" viewBox="0 0 30 20"><path d="M2 10h22M20 4l8 6-8 6" stroke="#8a837a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="sv-alabel">Scheduled</div>
+        </div>
+        <div class="sv-state running">
+          <div class="sv-name">RUNNING</div>
+          <div class="sv-desc">Executing on CPU now</div>
+        </div>
+        <div class="sv-arrow">
+          <svg width="30" height="20" viewBox="0 0 30 20"><path d="M2 10h22M20 4l8 6-8 6" stroke="#8a837a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="sv-alabel">Release / Exit</div>
+        </div>
+        <div class="sv-state">
+          <div class="sv-name">TERMINATED</div>
+          <div class="sv-desc">Finished execution</div>
+        </div>
+      </div>
+
+      <h3>All Possible Transitions</h3>
+
+      <div class="table-wrap">
+        <div class="table-title">State Transitions</div>
+        <table>
+          <thead><tr><th>From</th><th>To</th><th>Trigger</th><th>Explanation</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-y">New</span></td>
+              <td><span class="tag tag-b">Ready</span></td>
+              <td>OS admits the process</td>
+              <td>Process creation is complete. The OS adds it to the ready queue.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-b">Ready</span></td>
+              <td><span class="tag tag-y">Running</span></td>
+              <td>Scheduler dispatches / schedules it</td>
+              <td>The OS picks this process as the next to run. Its registers are loaded onto the CPU.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-y">Running</span></td>
+              <td><span class="tag tag-b">Ready</span></td>
+              <td>Time slice expired / descheduled</td>
+              <td>The process used its time slice. OS preempts it and gives CPU to another process.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-y">Running</span></td>
+              <td><span class="tag tag-p">Blocked</span></td>
+              <td>Process initiates I/O (disk, network)</td>
+              <td>Process asked for something slow. It can't proceed until the I/O finishes, so it waits.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-p">Blocked</span></td>
+              <td><span class="tag tag-b">Ready</span></td>
+              <td>I/O completes / event arrives</td>
+              <td>The disk/network finished. Process is ready to run again. Goes to ready queue.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-y">Running</span></td>
+              <td><span class="tag tag-g">Terminated</span></td>
+              <td>Process calls exit() or crashes</td>
+              <td>Process is done. Resources start being freed. PCB may temporarily enter Zombie state.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="exam">
+        <div class="e-label">Critical exam rule</div>
+        <p>A process executes instructions ONLY when it is in the <strong>RUNNING</strong> state. Being "Ready" means it <em>could</em> run — not that it <em>is</em> running. Being "Blocked" means it <em>cannot</em> run even if the CPU is free. Never confuse Ready with Running.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 8: TRACING -->
+    <section class="section" id="s8">
+      <div class="section-badge"><span class="badge-num">§ 4.5</span> Worked Examples</div>
+      <h2>Tracing Process States — Seeing It in Action</h2>
+
+      <p class="lead">The best way to understand process states is to trace through a concrete example. The textbook gives two scenarios — one simple, one more realistic.</p>
+
+      <h3>Scenario 1: CPU Only (No I/O)</h3>
+      <p>Two processes. Process 0 runs to completion, then Process 1 runs. No I/O involved. Simple, sequential.</p>
+
+      <div class="table-wrap">
+        <div class="table-title">Figure 4.3 — CPU Only</div>
+        <table>
+          <thead><tr><th>Time</th><th>Process₀</th><th>Process₁</th><th>What's happening</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ has the CPU and is executing</td></tr>
+            <tr><td>2</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ still running, P₁ waits patiently</td></tr>
+            <tr><td>3</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ still going</td></tr>
+            <tr><td>4</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ finishes and exits</td></tr>
+            <tr><td>5</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ now gets the CPU</td></tr>
+            <tr><td>6</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ running</td></tr>
+            <tr><td>7</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ running</td></tr>
+            <tr><td>8</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ finishes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>This is simple but <strong>inefficient</strong> — P₁ was just sitting in Ready state doing nothing for 4 time units. What if P₀ had needed to read from disk?</p>
+
+      <div class="fancy-divider"><span>vs</span></div>
+
+      <h3>Scenario 2: CPU + I/O (The Smart Way)</h3>
+      <p>Process 0 starts, then requests I/O (e.g., reads a file from disk). I/O is slow — it takes 3 time units. Instead of wasting those 3 units, the OS runs Process 1. This is the whole point of the Blocked state.</p>
+
+      <div class="table-wrap">
+        <div class="table-title">Figure 4.4 — CPU and I/O (OS keeps CPU busy!)</div>
+        <table>
+          <thead><tr><th>Time</th><th>Process₀</th><th>Process₁</th><th>What's happening</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ executing</td></tr>
+            <tr><td>2</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ executing</td></tr>
+            <tr><td>3</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note"><strong>P₀ initiates a disk read!</strong></td></tr>
+            <tr><td>4</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">P₀ waits for disk → OS immediately runs P₁</td></tr>
+            <tr><td>5</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">Disk is still reading... P₁ uses CPU</td></tr>
+            <tr><td>6</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">Disk still reading... P₁ continues</td></tr>
+            <tr><td>7</td><td class="td-ready">Ready</td><td class="td-run">Running</td><td class="td-note">Disk done! P₀ moves to Ready. P₁ still gets to finish its turn.</td></tr>
+            <tr><td>8</td><td class="td-ready">Ready</td><td class="td-run">Running</td><td class="td-note">P₁ finishes</td></tr>
+            <tr><td>9</td><td class="td-run">Running</td><td>—</td><td class="td-note">P₀ gets CPU back, resumes exactly where it left off</td></tr>
+            <tr><td>10</td><td class="td-run">Running</td><td>—</td><td class="td-note">P₀ finishes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="definition">
+        <div class="def-label">Key Takeaway</div>
+        <p>The OS <strong>maximizes CPU utilization</strong> by switching to another process whenever one blocks for I/O. Rather than letting the CPU sit idle waiting for a slow disk, it immediately puts that CPU to productive use. Without this, a single disk read would waste the entire machine.</p>
+      </div>
+
+      <p>Notice how P₀ resumed from exactly where it left off at time 9. That's the magic of saving and restoring machine state — P₀ never knew it was paused. From P₀'s perspective, the disk read just took a moment, when in reality three other things happened during that time.</p>
+    </section>
+
+    <!-- SECTION 9: THE PCB -->
+    <section class="section" id="s9">
+      <div class="section-badge"><span class="badge-num">§ 4.5</span> Data Structures</div>
+      <h2>The Process Control Block (PCB)</h2>
+
+      <p class="lead">The OS tracks every single process using a data structure called the Process Control Block. This is the OS's "dossier" on each process — everything it needs to know to manage it.</p>
+
+      <p>For the OS to switch between processes (context switch), pause them, resume them, and track their state, it needs to store information about each process somewhere. That somewhere is the <strong>PCB</strong> — one PCB per process, stored in the OS kernel.</p>
+
+      <p>In the textbook (xv6, a teaching OS), the PCB is defined as:</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <div class="code-filename">proc.h — Process Control Block (PCB)</div>
+        </div>
+        <pre><span class="kw">struct</span> <span class="tp">proc</span> {
+    <span class="cm">/* State this process is in */</span>
+    <span class="kw">enum</span> <span class="tp">proc_state</span>  <span class="fd">state</span>;    <span class="cm">// RUNNING, READY, BLOCKED, ZOMBIE, etc.</span>
+
+    <span class="cm">/* Saved CPU registers — stored here during a context switch */</span>
+    <span class="kw">struct</span> <span class="tp">context</span>   <span class="fd">context</span>;  <span class="cm">// Contains PC, SP, and all general registers</span>
+
+    <span class="cm">/* Memory */</span>
+    <span class="kw">char</span>             <span class="fd">*mem</span>;     <span class="cm">// Pointer to start of process address space</span>
+
+    <span class="cm">/* Process relationships */</span>
+    <span class="kw">struct</span> <span class="tp">proc</span>     <span class="fd">*parent</span>;  <span class="cm">// Pointer to the parent process (who created this)</span>
+
+    <span class="cm">/* Identifier */</span>
+    <span class="kw">int</span>              <span class="fd">pid</span>;      <span class="cm">// Process ID — unique number for this process</span>
+};</pre>
+      </div>
+
+      <h3>What Each Field Does</h3>
+
+      <div class="three-col">
+        <div class="info-card accent-gold">
+          <div class="card-label">state</div>
+          <h4>Current state</h4>
+          <p>Which state is this process in right now? RUNNING, READY, BLOCKED, or ZOMBIE. The OS updates this field constantly as the process moves between states.</p>
+        </div>
+        <div class="info-card accent-red">
+          <div class="card-label">context</div>
+          <h4>Saved registers</h4>
+          <p>When the OS does a context switch (pauses this process), it dumps all the CPU registers here. When this process runs again, it loads them back. This is how the process resumes seamlessly from where it left off.</p>
+        </div>
+        <div class="info-card accent-blue">
+          <div class="card-label">mem</div>
+          <h4>Memory pointer</h4>
+          <p>A pointer to the start of this process's address space. The OS uses this to know where in physical RAM this process's memory lives.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="info-card accent-brown">
+          <div class="card-label">parent</div>
+          <h4>Parent process</h4>
+          <p>Every process (except the first — <code>init</code>) has a parent. This pointer tracks who created this process. The parent-child relationship is important for <code>wait()</code> and zombie cleanup.</p>
+        </div>
+        <div class="info-card accent-green">
+          <div class="card-label">pid</div>
+          <h4>Process ID</h4>
+          <p>A unique integer assigned to each process. The first process (init) gets PID 1. Every new process gets the next available number. <code>ps</code> and Task Manager display PIDs. You use them with <code>kill &lt;pid&gt;</code>.</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="t-label">Context switch detail</div>
+        <p>During a context switch from process A to B: (1) Save A's CPU registers into A's PCB.context. (2) Update A's PCB.state to READY. (3) Load B's registers from B's PCB.context into the CPU. (4) Update B's PCB.state to RUNNING. The CPU now continues from B's saved Program Counter — B picks up exactly where it left off.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 10: ZOMBIE STATE -->
+    <section class="section" id="s10">
+      <div class="section-badge"><span class="badge-num">★ EXAM</span> Critical Concept</div>
+      <h2>The Zombie State — Dead but Not Gone</h2>
+
+      <p class="lead">One of the most frequently tested concepts in this chapter: what happens to a process after it calls exit()? The answer is more interesting than "it disappears."</p>
+
+      <p>When a process calls <code>exit()</code> — either explicitly or by returning from main() — you might think it simply disappears. In reality, it enters a special state called <strong>ZOMBIE</strong>.</p>
+
+      <div class="definition">
+        <div class="def-label">Definition — Zombie State</div>
+        <p>A process that has <strong>finished executing</strong> (called exit()) but whose <strong>PCB has not yet been cleaned up</strong> by its parent process. It is dead, but its entry still exists in the process table.</p>
+      </div>
+
+      <h3>Why Does the Zombie State Exist?</h3>
+      <p>When a child process exits, it may have important information the parent needs:</p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Child calls exit(status_code)</h4>
+            <p>The child process finishes and calls <code>exit(0)</code> (success) or <code>exit(1)</code> (failure). The OS needs to preserve this exit status code somewhere so the parent can read it later. That "somewhere" is the PCB — which is why the PCB can't be deleted yet.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Process enters ZOMBIE state</h4>
+            <p>The OS frees most of the process's resources — its address space (RAM), open file descriptors, etc. — but keeps the PCB alive. The process is "mostly dead." It cannot run, it has no memory, but it still has an entry in the process table with its PID and exit status.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Parent calls wait() to collect the exit status</h4>
+            <p>When the parent process calls <code>wait()</code> or <code>waitpid()</code>, the OS gives the parent the child's exit status. The OS then completely removes the child's PCB. The process is now fully gone — no longer a zombie.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background: var(--accent);">!</div>
+          <div class="step-body">
+            <h4>Problem: Parent never calls wait()</h4>
+            <p>If the parent process never calls <code>wait()</code>, the zombie lingers forever (until the parent itself dies). A zombie consumes an entry in the process table. If thousands of zombies accumulate, the process table fills up and the system can't create new processes — a denial-of-service attack or serious bug.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="analogy">
+        <div class="a-label">Analogy</div>
+        <p>Think of a zombie process like an employee who quit their job but whose name is still on the payroll database. The company (OS) keeps their record so management (the parent) can do their exit interview and final paperwork (read the exit status). Once the exit interview is done (parent calls wait()), the record is deleted. If management never does the exit interview, the record stays forever — wasting database space.</p>
+      </div>
+
+      <div class="exam">
+        <div class="e-label">Exam definition to memorize</div>
+        <p><strong>Zombie state:</strong> A process that has called exit() and finished executing, but whose PCB entry has not yet been removed by its parent process. The parent must call wait() to collect the exit status, after which the OS removes the PCB completely. A zombie holds no memory or file descriptors — only a PCB entry with PID and exit status.</p>
+      </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="section" id="summary">
+      <div class="section-badge"><span class="badge-num">★</span> Exam Summary</div>
+      <h2>Chapter 4 — Complete Exam Summary</h2>
+
+      <p class="lead">Everything you need to know for your exam, condensed and organized by importance.</p>
+
+      <div class="big-number-grid">
+        <div class="big-num-item">
+          <div class="the-num">3</div>
+          <div class="the-label">Core process states<br>(Running, Ready, Blocked)</div>
+        </div>
+        <div class="big-num-item">
+          <div class="the-num">5</div>
+          <div class="the-label">Steps in process creation<br>(Load→Stack→Heap→I/O→main)</div>
+        </div>
+        <div class="big-num-item">
+          <div class="the-num">5</div>
+          <div class="the-label">Process API operations<br>(Create, Destroy, Wait, Control, Status)</div>
+        </div>
+      </div>
+
+      <h3>The 10 Things You Must Know</h3>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Process = running program</h4>
+            <p>A program is passive bytes on disk. A process is an active, running instance. The OS transforms one into the other. One program can spawn multiple processes.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>CPU virtualization via time sharing</h4>
+            <p>The OS rapidly switches between processes (time slicing) to create the illusion that all programs run simultaneously. Each gets a small time slice. Cost: performance overhead on each switch.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Mechanism (HOW) vs Policy (WHICH)</h4>
+            <p>Context switch = mechanism (how to switch). Scheduling algorithm = policy (who runs next). Keep them separate so you can change the policy without rewriting the mechanism.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Machine state: 3 components</h4>
+            <p>Every process has: (1) Address space (private memory with code, data, stack, heap), (2) Registers (PC, SP, general regs), (3) I/O info (open file descriptors). All must be saved/restored on context switch.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Process creation order</h4>
+            <p>1→ Load code/data. 2→ Allocate stack (+ set argc/argv). 3→ Allocate heap. 4→ Set up stdin/stdout/stderr. 5→ Jump to main(). Modern OSes load lazily (demand paging) not eagerly.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h4>3 states: Running, Ready, Blocked</h4>
+            <p>Running = actively on CPU. Ready = wants CPU, waiting in queue. Blocked = waiting for I/O, can't run. Process executes instructions ONLY in the Running state.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <h4>OS maximizes CPU by using I/O blocking</h4>
+            <p>When process A blocks for I/O, the OS immediately runs process B. This keeps the CPU busy instead of idle. When A's I/O finishes, A moves back to Ready, eventually Running again.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">8</div>
+          <div class="step-body">
+            <h4>PCB — Process Control Block</h4>
+            <p>The OS's data structure for each process. Contains: state, context (saved registers), mem (address space pointer), parent pointer, pid. Registers are saved here during every context switch.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:var(--accent);">★</div>
+          <div class="step-body">
+            <h4>Zombie state (exam favourite!)</h4>
+            <p>When a process calls exit(), it enters ZOMBIE state. It's done running but its PCB stays until the parent calls wait(). The PCB holds the exit status code. If parent never calls wait(), the zombie persists — wasting a process table entry.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">10</div>
+          <div class="step-body">
+            <h4>Context switch saves &amp; restores the machine state</h4>
+            <p>To switch from A to B: save A's registers into A's PCB → mark A as Ready → load B's registers from B's PCB → mark B as Running → CPU continues from B's saved PC. B never knew it was paused.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam">
+        <div class="e-label">Top exam traps to avoid</div>
+        <p>
+          1. "Ready" ≠ "Running" — Ready means waiting for CPU, not executing.<br>
+          2. A Blocked process cannot run even if the CPU is free — it's waiting for I/O, not for CPU.<br>
+          3. Zombie ≠ "crashed" — A zombie finished normally (called exit) but parent hasn't called wait yet.<br>
+          4. Lazy loading is the modern standard — not eager loading.<br>
+          5. Mechanism and policy are separate — never say "context switch is a policy" (it's a mechanism).
+        </p>
+      </div>
+
+      <div class="tip">
+        <div class="t-label">You've got this!</div>
+        <p>You've covered every concept in Chapter 4. The process abstraction is the foundation for everything else in the course — scheduling, memory management, concurrency. Master these concepts and the rest becomes much easier.</p>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<script>
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    const pct = Math.round((window.scrollY / total) * 100);
+    progress.style.width = pct + '%';
+  });
+
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
