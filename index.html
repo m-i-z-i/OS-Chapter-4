@@ -928,6 +928,185 @@
     .sidebar, .progress-bar { display: none; }
     .main { margin-left: 0; }
   }
+
+  /* ── PRACTICE QUESTIONS ── */
+  .practice {
+    background: #eef4ff;
+    border: 1px solid #93c5fd;
+    border-left: 4px solid var(--accent2);
+    border-radius: 0 8px 8px 0;
+    padding: 22px 26px;
+    margin: 32px 0 0;
+  }
+  .practice .p-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .practice ol { padding-left: 20px; margin: 0; }
+  .practice ol li {
+    font-size: 14px;
+    color: #1e3a5f;
+    margin-bottom: 10px;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+  .practice ol li:last-child { margin-bottom: 0; }
+  .practice details {
+    margin-top: 6px;
+    margin-bottom: 12px;
+  }
+  .practice summary {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--mono);
+    color: var(--accent2);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    list-style: none; /* Hide default arrow in some browsers */
+  }
+  .practice summary::-webkit-details-marker {
+    display: none; /* Hide arrow in Safari */
+  }
+  .practice summary::before {
+    content: "▶ ";
+    font-size: 9px;
+    vertical-align: middle;
+  }
+  .practice details[open] summary::before {
+    content: "▼ ";
+  }
+  .practice summary:hover {
+    text-decoration: underline;
+  }
+  .practice .ans {
+    margin-top: 8px;
+    padding: 12px 16px;
+    background: #ffffff;
+    border: 1px solid #bfdbfe;
+    border-left: 3px solid #3b82f6;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: #1e3a5f;
+    line-height: 1.6;
+  }
+  .mark {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    background: #dbeafe;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-left: 6px;
+    font-weight: 500;
+  }
+
+  /* ── MACHINE STATE DIAGRAM ── */
+  .msd-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .msd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+  .msd-box { border-radius: 8px; padding: 16px; }
+  .msd-box-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .msd-item {
+    border-radius: 5px;
+    padding: 7px 12px;
+    font-size: 13px;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .msd-item:last-child { margin-bottom: 0; }
+
+  /* ── GANTT CHART ── */
+  .gantt-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+    overflow-x: auto;
+  }
+  .gantt-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(10, 1fr);
+    gap: 3px;
+    min-width: 580px;
+  }
+  .gantt-hdr {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-align: center;
+    padding: 6px 2px;
+    color: var(--ink3);
+    font-weight: 600;
+  }
+  .gantt-lbl {
+    font-family: var(--mono);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    color: var(--ink2);
+    font-weight: 500;
+  }
+  .gantt-cell {
+    border-radius: 4px;
+    padding: 10px 2px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+  .gc-run { background: #c8922a; color: #fff; }
+  .gc-blk { background: #6b7280; color: #fff; }
+  .gc-rdy { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+  .gc-nil { background: var(--surface2); }
+
+  /* ── STATE SVG ── */
+  .state-svg-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 16px;
+    margin: 24px 0;
+    overflow-x: auto;
+  }
+
+  /* ── GLOSSARY ── */
+  .gloss-term {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .gloss-def { font-size: 13px; color: var(--ink2); }
+
+  @media (max-width: 900px) {
+    .msd-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -978,754 +1157,925 @@
 
   <div class="content">
 
-    <!-- SECTION 1: WHAT IS A PROCESS -->
+    <!-- §4.0 WHAT IS A PROCESS -->
     <section class="section" id="s1">
-      <div class="section-badge"><span class="badge-num">§ 4.0</span> Core Concept</div>
+      <div class="section-badge"><span class="badge-num">§ 4.0</span> Foundational Concept</div>
       <h2>What is a Process?</h2>
 
-      <p class="lead">A process is simply a running program. This one-sentence definition is the foundation of everything in this chapter.</p>
+      <div class="definition">
+        <div class="def-label">Formal Definitions</div>
+        <p><strong>Program:</strong> A static collection of instructions and data stored on persistent storage (disk). A program is a passive entity — it does not execute independently. It is simply an executable file waiting to be run.</p>
+        <br>
+        <p><strong>Process:</strong> A program in execution. A process is the OS's fundamental abstraction of a running program — an active entity consisting of the program's instructions, its current execution state (register values, program counter), and the resources it is using (memory, open files).</p>
+      </div>
 
-      <p>Every single app on your computer — your browser, music player, game — exists first as a <strong>program</strong>: a file sitting on your hard drive containing instructions. That file does absolutely nothing on its own. It's passive, static, lifeless bytes. The moment you run it, the Operating System wakes it up and transforms it into a <strong>process</strong> — a living, active entity that uses the CPU, consumes memory, and does actual work.</p>
+      <p>The essential distinction is one of <strong>state</strong>. A program is an inert file on disk with no dynamic properties. When the OS loads a program into memory and begins executing it, that program instance becomes a process. One program file can give rise to multiple simultaneous processes (e.g., opening two terminal windows runs two independent shell processes from the same executable).</p>
 
       <div class="split-card">
         <div class="split-side">
           <div class="side-label" style="color: var(--ink3);">Program — Passive</div>
-          <h4>The Recipe</h4>
+          <h4>Static Entity</h4>
           <ul>
-            <li>Lifeless static bytes stored on disk</li>
-            <li>Does absolutely nothing on its own</li>
-            <li>Can be copied, deleted, shared</li>
-            <li>One program file exists once on disk</li>
-            <li>Like a recipe sitting in a cookbook</li>
+            <li>An executable file stored on disk</li>
+            <li>Contains compiled instructions and data</li>
+            <li>Does not consume CPU or memory on its own</li>
+            <li>One copy on disk; can be shared across processes</li>
+            <li>Has no execution state</li>
           </ul>
         </div>
         <div class="split-side">
           <div class="side-label" style="color: var(--gold);">Process — Active</div>
-          <h4>The Cooking</h4>
+          <h4>Dynamic Entity</h4>
           <ul>
-            <li>A running entity with dynamic state</li>
-            <li>Actively executing instructions on CPU</li>
-            <li>Uses real memory, real CPU time</li>
-            <li>One program can spawn many processes</li>
-            <li>Like actually cooking from that recipe</li>
+            <li>A program currently being executed by the CPU</li>
+            <li>Has a unique execution state (PC, registers, memory)</li>
+            <li>Consumes CPU time and memory at runtime</li>
+            <li>Multiple processes can run from one program</li>
+            <li>Created and destroyed at runtime by the OS</li>
           </ul>
         </div>
       </div>
 
-      <div class="definition">
-        <div class="def-label">Definition</div>
-        <p>A <strong>process</strong> is simply a running program. It is the OS's most fundamental abstraction — the illusion that each program has the machine to itself.</p>
+      <div class="exam">
+        <div class="e-label">Exam Note</div>
+        <p>The OS manages <em>processes</em>, not programs. The program is the static blueprint; the process is the active, running instance. This distinction is the foundation of all concepts in this chapter.</p>
       </div>
 
-      <div class="analogy">
-        <div class="a-label">Real-world analogy</div>
-        <p>A program is like a music score — sheets of paper with notes on them. A process is the orchestra actually performing that score. The score sits still; the performance is alive, dynamic, and real-time. You can have multiple orchestras perform the same score simultaneously — just like you can open multiple browser windows from one program.</p>
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>Define a <em>process</em>. How does it differ from a <em>program</em>? In your answer, specify what additional runtime information a process possesses that a program on disk does not. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">A <strong>process</strong> is a running program in execution. It differs from a <strong>program</strong> (which is static code on disk) because it is an active entity. A process possesses runtime information that a program lacks: an execution state (represented by the Program Counter and CPU registers), a private Address Space (containing the stack and heap), and I/O state (open file descriptors).</div></details>
+          </li>
+          <li>Explain what is meant by "a process is an abstraction provided by the operating system." <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">The OS provides each running program with the illusion that it has exclusive access to the CPU (via CPU virtualization/time-sharing) and exclusive access to memory (via virtual memory). This constructed environment—the illusion of a dedicated machine—is the abstraction known as a process, isolating programs from each other and the physical hardware limitations.</div></details>
+          </li>
+          <li>Can a single program give rise to multiple processes simultaneously? Justify your answer with an example. <span class="mark">[2 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">Yes. A program is just a static file on disk. When the OS loads that file into memory and executes it multiple times concurrently, each execution instance is a distinct process. For example, opening three separate terminal windows runs three independent <code>cmd</code> or shell processes, all originating from the exact same executable program.</div></details>
+          </li>
+        </ol>
       </div>
-
-      <p>This distinction matters because the OS manages <em>processes</em>, not programs. When you press Ctrl+Alt+Del and see the Task Manager, every row is a process — not a program file. Chrome might show 10 rows because it runs one process per tab for safety and performance.</p>
     </section>
 
-    <!-- SECTION 2: CPU VIRTUALIZATION -->
+    <!-- §4.1 CPU VIRTUALIZATION -->
     <section class="section" id="s2">
-      <div class="section-badge"><span class="badge-num">§ 4.1</span> The Core Problem</div>
-      <h2>CPU Virtualization — The Illusion of Many CPUs</h2>
+      <div class="section-badge"><span class="badge-num">§ 4.1</span> The Crux: Illusion of Many CPUs</div>
+      <h2>CPU Virtualization</h2>
 
-      <p class="lead">How can 200 programs run "simultaneously" on a machine with only 8 CPU cores? The answer is one of the most elegant tricks in computer science.</p>
-
-      <p>Your computer physically has a limited number of CPU cores — maybe 4, 8, or 16. Yet right now you might have a browser, a music player, a code editor, an antivirus, and dozens of background services all "running" at once. How?</p>
-
-      <p>The OS creates an <strong>illusion</strong>. It switches between processes so rapidly — thousands of times per second — that it <em>feels</em> like everything is happening simultaneously. This technique is called <strong>time sharing</strong>, and it is the fundamental mechanism behind CPU virtualization.</p>
-
-      <div class="analogy">
-        <div class="a-label">Analogy — the busy chef</div>
-        <p>Imagine a chef at a busy restaurant. They don't cook one dish start-to-finish before starting the next. Instead: start the pasta boiling, go chop vegetables, flip the steak, stir the sauce, check the pasta, and so on. To the diners, all dishes are being prepared "at once" — but the chef is just switching tasks very quickly. The OS is that chef. Processes are the dishes.</p>
+      <div class="definition">
+        <div class="def-label">Formal Definitions</div>
+        <p><strong>CPU Virtualization:</strong> An OS technique that creates the illusion that each running process has exclusive access to a dedicated physical CPU, while in reality multiple processes share a limited number of physical CPU cores.</p>
+        <br>
+        <p><strong>Time Sharing (of the CPU):</strong> A mechanism in which the CPU is allocated to processes in short intervals called <em>time slices</em>. At the end of each slice, the OS saves the current process's state, selects the next process, and resumes it. By cycling rapidly among processes, the OS creates the appearance of simultaneous execution. <strong>Cost:</strong> a performance overhead at every context switch.</p>
+        <br>
+        <p><strong>Space Sharing (of resources like Disk):</strong> A resource allocation strategy where the resource is physically partitioned among users permanently. Each partition belongs exclusively to one entity until released — no time-multiplexing occurs.</p>
       </div>
+
+      <p>A physical machine has a fixed number of CPU cores. To allow many more processes to run than there are cores, the OS <strong>time-multiplexes</strong> the CPU — switching between processes rapidly so each makes progress within a reasonable time frame. The trade-off is a small but real performance penalty at every switch due to saving and restoring registers.</p>
 
       <div class="two-col">
         <div class="info-card accent-blue">
           <div class="card-label">Time Sharing — CPU</div>
-          <h4>How the CPU is shared</h4>
-          <p>The OS runs process A for a tiny time slice (e.g. 10 milliseconds), saves its state, then runs process B for 10ms, then C... When it comes back to A, it restores its state and continues. Each process thinks it has the whole CPU. Cost: a small performance overhead on each switch.</p>
+          <h4>Shared Over Time</h4>
+          <p>Run entity A for a time slice, then switch to B. Each process believes it has exclusive CPU access. <strong>Cost:</strong> performance overhead at each switch (saving/restoring registers and state).</p>
         </div>
         <div class="info-card accent-brown">
           <div class="card-label">Space Sharing — Disk</div>
-          <h4>How disk is shared differently</h4>
-          <p>Disk space is divided physically. Each file owns its sectors exclusively — there is no switching or sharing. File A's blocks belong to A until deleted. This is fundamentally different from time sharing — it is about dividing space, not time.</p>
+          <h4>Shared Over Space</h4>
+          <p>A resource is divided into partitions. Once a block is assigned to a file, it belongs to that file until deleted. No time switching — different entities occupy different physical regions.</p>
         </div>
       </div>
 
       <div class="tip">
-        <div class="t-label">Key insight</div>
-        <p>Virtualizing the CPU means making each process <em>believe</em> it has a dedicated CPU, when in reality it shares one physical CPU with many others. This is the OS's greatest magic trick.</p>
+        <div class="t-label">Key Distinction</div>
+        <p>Time sharing = temporal multiplexing (one resource, divided by time). Space sharing = spatial partitioning (one resource, divided by location). The CPU is time-shared; disk is space-shared.</p>
       </div>
 
-      <p>The challenge is doing this efficiently and fairly. The OS must decide: which process runs next? For how long? What happens when a process is waiting for disk I/O? These are questions of <strong>scheduling policy</strong>, which we'll cover in Chapter 7. For now, Chapter 4 just introduces the abstraction.</p>
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>Explain how the OS creates the illusion of multiple CPUs using time sharing. What is the performance trade-off involved? <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">The OS multiplexes the CPU by rapidly switching execution among multiple processes in short intervals called <em>time slices</em>. It runs process A, saves its state, runs process B, saves its state, and cycles back so quickly that they appear to run simultaneously. The trade-off is the performance overhead incurred during every context switch, where time is spent saving and restoring registers instead of executing useful user code.</div></details>
+          </li>
+          <li>Distinguish between time sharing and space sharing. Provide one concrete example of each in an operating system context. <span class="mark">[4 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans"><strong>Time sharing</strong> divides a single resource into temporal slices, granting entities access one after the other in rapid succession (e.g., the CPU). <strong>Space sharing</strong> divides a resource into physical partitions, dedicating a piece of the resource exclusively to an entity without time-multiplexing (e.g., Disk block allocation).</div></details>
+          </li>
+          <li>Define CPU virtualization and state why it is a fundamental responsibility of a modern operating system. <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">CPU virtualization is the OS technique that provides each process the illusion of having a dedicated physical CPU. It is a fundamental responsibility because it allows a single computer with limited cores to concurrently run hundreds of programs, enabling multitasking while isolating processes from hardware constraints and each other for stability and security.</div></details>
+          </li>
+        </ol>
+      </div>
     </section>
 
-    <!-- SECTION 3: MECHANISM VS POLICY -->
+    <!-- §4.1 MECHANISMS VS POLICIES -->
     <section class="section" id="s3">
       <div class="section-badge"><span class="badge-num">§ 4.1</span> OS Design Philosophy</div>
-      <h2>Mechanisms vs Policies</h2>
+      <h2>Mechanisms vs. Policies</h2>
 
-      <p class="lead">One of the most important design principles in operating systems: separate what you can do from what you decide to do.</p>
+      <div class="definition">
+        <div class="def-label">Formal Definitions</div>
+        <p><strong>Mechanism:</strong> A low-level protocol or procedure that implements a specific OS operation. A mechanism defines <em>how</em> an action is performed but contains no logic about <em>when</em> or <em>why</em> that action should occur.</p>
+        <br>
+        <p><strong>Policy:</strong> A high-level algorithm or decision-making strategy that determines which action the OS should take at any given time. A policy defines <em>which</em> resource to allocate and <em>when</em>, then relies on mechanisms to carry out the decision.</p>
+      </div>
 
-      <p>OS designers discovered early on that mixing implementation details with decision-making logic creates fragile, hard-to-change systems. The solution is to rigorously separate two things:</p>
+      <p>Separating mechanisms from policies is a fundamental principle of OS design. By keeping the low-level implementation of an operation independent from the decision-making logic, the OS gains <strong>modularity</strong>: policies can be changed or upgraded without altering the underlying mechanism code.</p>
 
       <div class="two-col">
         <div class="info-card accent-green">
           <div class="card-label">Mechanism — "The HOW"</div>
-          <h4>Low-level machinery</h4>
-          <p>A mechanism is the <em>protocol or procedure</em> for doing something. It knows <strong>how</strong> to perform an action, but makes no decisions about <strong>when</strong> or <strong>why</strong>.</p>
+          <h4>Low-level Machinery</h4>
+          <p>A protocol for implementation. Contains no decision logic.</p>
           <br>
-          <p><strong>Example:</strong> The <em>context switch</em> is a mechanism. It knows the exact steps to save process A's CPU registers to memory and load process B's registers from memory. It doesn't decide whether to switch — it just knows how.</p>
+          <p><strong>Example — Context Switch:</strong> The mechanism that saves the current process's CPU registers to memory and loads another process's registers. It performs this when instructed — it does not decide <em>whether</em> a switch should happen.</p>
         </div>
         <div class="info-card accent-gold">
           <div class="card-label">Policy — "The WHICH"</div>
-          <h4>High-level intelligence</h4>
-          <p>A policy is the <em>algorithm or strategy</em> for making decisions. It decides <strong>which</strong> process runs and <strong>when</strong>, using mechanisms to enforce those decisions.</p>
+          <h4>High-level Intelligence</h4>
+          <p>An algorithm for decision-making. Uses mechanisms to enforce decisions.</p>
           <br>
-          <p><strong>Example:</strong> The <em>scheduling policy</em> is a policy. It decides: run the shortest job next? Run the highest-priority process? Round-robin between all? It uses the context switch mechanism to implement its choice.</p>
+          <p><strong>Example — Scheduling Policy:</strong> Decides which process runs next (round-robin, shortest-job-first, priority, etc.) and triggers the context switch mechanism to enforce that decision.</p>
         </div>
-      </div>
-
-      <div class="analogy">
-        <div class="a-label">Analogy — traffic system</div>
-        <p>The traffic <em>light</em> is a mechanism — it knows how to turn red, yellow, and green. The <em>timing controller</em> is the policy — it decides how long each phase lasts based on traffic density. You can upgrade the controller (smarter timing algorithm) without replacing the lights. You can install different lights without rewriting the controller logic. They're independent.</p>
       </div>
 
       <div class="definition">
         <div class="def-label">Design Tip</div>
-        <p>Modular separation of mechanisms and policies allows <strong>policies to change without rewriting low-level mechanisms</strong>. This is why OS researchers can experiment with dozens of scheduling algorithms without touching the context switch code.</p>
+        <p>Modular separation of mechanisms and policies allows <strong>policies to change without rewriting low-level mechanisms</strong>. OS researchers can experiment with many scheduling algorithms without touching the context switch implementation.</p>
+      </div>
+
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>Distinguish between a <em>mechanism</em> and a <em>policy</em> as used in operating system design. Give a specific example of each. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">A <strong>mechanism</strong> is a low-level protocol defining <em>how</em> to perform an operation, without any decision-making logic (e.g., a Context Switch). A <strong>policy</strong> is a high-level algorithm defining <em>which</em> actions to take and <em>when</em> (e.g., Round-Robin Scheduling). Mechanisms execute actions; policies decide upon actions.</div></details>
+          </li>
+          <li>Why is separating mechanisms from policies considered good OS design practice? <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">It enforces <strong>modularity</strong>. By keeping decision logic separate from implementation details, OS developers can easily update, swap, or experiment with different policies (like new scheduling algorithms) without having to rewrite or risk breaking the complex, low-level mechanism code.</div></details>
+          </li>
+          <li>Classify each of the following as a mechanism or a policy and justify: (a) context switch, (b) round-robin scheduling, (c) saving CPU registers to the PCB, (d) priority-based scheduling. <span class="mark">[4 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">(a) <strong>Context switch</strong>: Mechanism — it's the procedure of switching. (b) <strong>Round-robin scheduling</strong>: Policy — it decides <em>when</em> to step to the next process. (c) <strong>Saving CPU registers to the PCB</strong>: Mechanism — it's an implementation detail required to pause a process. (d) <strong>Priority-based scheduling</strong>: Policy — it decides <em>which</em> process gets the CPU based on rank.</div></details>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- SECTION 4: MACHINE STATE -->
+    <!-- §4.1 MACHINE STATE -->
     <section class="section" id="s4">
       <div class="section-badge"><span class="badge-num">§ 4.1</span> What a Process Contains</div>
-      <h2>The Machine State — What's Inside a Process?</h2>
+      <h2>The Machine State</h2>
 
-      <p class="lead">To understand what the OS must save and restore when switching between processes, you need to know exactly what a process "owns" at any given moment.</p>
-
-      <p>A process is more than just running code. It has three fundamental components — think of these as the process's "possessions." To pause a process and resume it later perfectly (as if it never stopped), the OS must save all three completely and restore them exactly.</p>
-
-      <div class="three-col">
-        <div class="info-card accent-blue">
-          <div class="card-label">1 · Memory</div>
-          <h4>Address Space</h4>
-          <p>The chunk of RAM that belongs exclusively to this process. Contains its code (machine instructions), global variables, the stack, and the heap. No other process can read or write this memory — it is <strong>private and isolated</strong>.</p>
-        </div>
-        <div class="info-card accent-gold">
-          <div class="card-label">2 · CPU State</div>
-          <h4>Registers</h4>
-          <p>The CPU's current working state for this process. The most important are:
-          <br><br>
-          <strong>Program Counter (PC):</strong> Which instruction to execute next — like a bookmark in the code.
-          <br><br>
-          <strong>Stack Pointer (SP):</strong> Points to the top of the call stack.
-          <br><br>
-          Plus many general-purpose registers holding temporary values.</p>
-        </div>
-        <div class="info-card accent-green">
-          <div class="card-label">3 · I/O State</div>
-          <h4>I/O Information</h4>
-          <p>A list of open file descriptors — the channels to the outside world that this process has open:
-          <br><br>
-          <strong>fd 0:</strong> stdin (keyboard input)
-          <br><strong>fd 1:</strong> stdout (screen output)
-          <br><strong>fd 2:</strong> stderr (error output)
-          <br><strong>fd 3+:</strong> any files/sockets the program opened</p>
-        </div>
+      <div class="definition">
+        <div class="def-label">Formal Definitions</div>
+        <p><strong>Machine State:</strong> The complete set of information that uniquely defines the execution context of a process at any instant. It is everything the OS must save and restore accurately to pause and resume a process without the process being aware of the interruption.</p>
+        <br>
+        <p><strong>Address Space:</strong> The private region of memory allocated to a process. It contains the process's instructions (text segment) and data (global variables, heap, stack). No other process may access this memory region.</p>
+        <br>
+        <p><strong>Program Counter (PC):</strong> A CPU register that holds the memory address of the <em>next instruction</em> to be executed by the process. It is the most critical register in the machine state.</p>
+        <br>
+        <p><strong>Stack Pointer (SP):</strong> A CPU register that points to the top of the current call stack, tracking function call frames, local variables, and return addresses.</p>
+        <br>
+        <p><strong>File Descriptor:</strong> An integer handle assigned by the OS to an open I/O resource (file, socket, pipe). A process's I/O state is defined by the set of file descriptors it currently holds open.</p>
       </div>
 
-      <div class="analogy">
-        <div class="a-label">Analogy — pausing a video game</div>
-        <p>When you save a video game and come back later, the game must restore: your position (address space), what buttons you were pressing (registers), and which inventory items were open (I/O state). If it only saves your position but forgets your health and inventory, you can't resume seamlessly. The OS does exactly this — a perfect save and restore of all three components — on every context switch.</p>
+      <!-- Machine State Diagram from Slide 4.1 -->
+      <div class="msd-wrap">
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; text-align: center; margin-bottom: 18px;">§ 4.1 — Inventory of a Process (Machine State)</div>
+        <div style="border: 2px dashed var(--border2); border-radius: 10px; padding: 20px;">
+          <div style="text-align: center; font-family: var(--mono); font-size: 10px; color: var(--ink3); margin-bottom: 14px; letter-spacing: 0.08em; text-transform: uppercase;">The Process</div>
+          <div class="msd-grid">
+            <div class="msd-box" style="border: 2px solid var(--accent2); background: #eff6ff;">
+              <div class="msd-box-label" style="color: var(--accent2);">Address Space</div>
+              <div class="msd-item" style="background: #dbeafe; color: #1e40af;">Instructions</div>
+              <div class="msd-item" style="background: #dbeafe; color: #1e40af;">Data</div>
+            </div>
+            <div class="msd-box" style="border: 2px solid var(--gold); background: #fffbeb;">
+              <div class="msd-box-label" style="color: #92400e;">Registers</div>
+              <div class="msd-item" style="background: #fef9c3; color: #854d0e; font-size: 12px;">Program Counter (PC)</div>
+              <div class="msd-item" style="background: #fef9c3; color: #854d0e; font-size: 12px;">Stack Pointer (SP)</div>
+            </div>
+            <div class="msd-box" style="border: 2px solid var(--accent3); background: #f0fdf4;">
+              <div class="msd-box-label" style="color: var(--accent3);">I/O Info</div>
+              <div style="background: #dcfce7; border-radius: 5px; padding: 10px 12px;">
+                <div style="font-family: var(--mono); font-size: 10px; color: #166534; margin-bottom: 6px; font-weight: 700;">Open File Descriptors</div>
+                <div style="font-family: var(--mono); font-size: 11px; color: #15803d; line-height: 1.9;">fd 0: stdin<br>fd 1: stdout<br>fd 2: stderr<br>fd 3: ...<br>fd 4: ...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="text-align:center; font-size:13px; color:var(--ink3); margin-top:14px; font-style:italic; font-family:var(--serif);">To pause and resume a process, the OS must save and restore exactly these components.</p>
       </div>
 
-      <h3>Memory Layout Visualization</h3>
-      <p>Inside the address space, memory is organized in a specific layout:</p>
-
-      <div class="memory-vis">
-        <div class="mem-row">
-          <div class="mem-addr">High addr</div>
-          <div class="mem-label mem-stack">Stack ↓</div>
-          <div class="mem-desc">Local variables, function parameters, return addresses. Grows downward. Fixed size.</div>
-        </div>
-        <div class="mem-row">
-          <div class="mem-addr" style="background:#1e1b18; color: rgba(255,255,255,0.15);">···</div>
-          <div class="mem-label" style="background:#f9fafb; color: #9ca3af; font-size:12px; font-style:italic;">free space</div>
-          <div class="mem-desc">Space between stack and heap (can shrink or grow)</div>
-        </div>
-        <div class="mem-row">
-          <div class="mem-addr"></div>
-          <div class="mem-label mem-heap">Heap ↑</div>
-          <div class="mem-desc">Dynamic allocation (malloc/new). Grows upward. Resizable at runtime.</div>
-        </div>
-        <div class="mem-row">
-          <div class="mem-addr"></div>
-          <div class="mem-label mem-data">Data segment</div>
-          <div class="mem-desc">Global and static variables. Fixed size, set at compile time.</div>
-        </div>
-        <div class="mem-row">
-          <div class="mem-addr">Low addr</div>
-          <div class="mem-label mem-text">Text segment</div>
-          <div class="mem-desc">The actual program code (machine instructions). Read-only. Loaded from disk.</div>
-        </div>
+      <div class="exam">
+        <div class="e-label">Exam Note</div>
+        <p>The <strong>Program Counter (PC)</strong> is the single most important register — it tells the CPU exactly where to resume execution. Failing to save and restore the PC correctly during a context switch means the process will resume at the wrong instruction.</p>
       </div>
 
-      <div class="tip">
-        <div class="t-label">Why this matters</div>
-        <p>To pause process A and resume it later, the OS saves its registers (including PC and SP) into the PCB. The address space stays in memory (or is saved to disk). The file descriptors are tracked in the kernel. When A resumes, everything is restored — it has no idea it was ever paused.</p>
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>What is the machine state of a process? Identify and explain its three main components. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">The machine state is the complete set of information defining a process's execution context at any instant. Its three main components are: <br>1. <strong>Address Space:</strong> The isolated memory region containing the program's instructions and data (heap/stack).<br>2. <strong>Registers:</strong> The CPU's execution context, notably the Program Counter (PC) and Stack Pointer (SP).<br>3. <strong>I/O Information:</strong> The list of file descriptors currently open, linking the process to inputs and outputs.</div></details>
+          </li>
+          <li>What is the role of the Program Counter (PC) and Stack Pointer (SP) in a process's machine state? Why are they critical to a correct context switch? <span class="mark">[4 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">The <strong>Program Counter (PC)</strong> points to the memory address of the next instruction to execute. The <strong>Stack Pointer (SP)</strong> points to the top of the call stack, managing function frames. They are critical to a context switch because if they are not perfectly saved and restored, the process will resume execution at the wrong instruction or with corrupted function tracking, leading to immediate crashing or undefined behavior.</div></details>
+          </li>
+          <li>Why must the OS save and restore all components of the machine state during a context switch? What is the consequence if any component is omitted? <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">The OS must save and restore all components to maintain the illusion that the process was never interrupted. If the registers are omitted, execution logic is lost. If I/O state is omitted, file operations will fail. If the memory mapping is omitted, data is corrupted. Omitting any piece breaks the process's abstraction and causes catastrophic failure for the program.</div></details>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- SECTION 5: PROCESS API -->
+
+
+
+
+
+    <!-- 4.2 PROCESS API -->
     <section class="section" id="s5">
-      <div class="section-badge"><span class="badge-num">§ 4.2</span> Process API</div>
-      <h2>The Process API — 5 Things Every OS Must Provide</h2>
+      <div class="section-badge"><span class="badge-num">§ 4.2</span> Process API Overview</div>
+      <h2>The Process API</h2>
 
-      <p class="lead">Every operating system — Windows, Linux, macOS — must provide these five fundamental operations for managing processes.</p>
-
-      <p>An API (Application Programming Interface) is a set of functions that programs can call to ask the OS to do things. For processes, the OS must provide at minimum:</p>
+      <div class="definition">
+        <div class="def-label">Formal Definition</div>
+        <p><strong>Process API:</strong> The set of system calls provided by the OS that allow programs and users to create, manage, and destroy processes. Every general-purpose OS must provide at minimum the following five operations.</p>
+      </div>
 
       <div class="step-list">
         <div class="step-item">
           <div class="step-num">1</div>
           <div class="step-body">
-            <h4>Create — Launch a new process</h4>
-            <p>The OS must be able to create new processes. When you double-click an app, the OS runs a "create process" call. In Unix/Linux, this is done via <span class="tag tag-b">fork()</span> + <span class="tag tag-b">exec()</span>. The shell uses this constantly — every command you type creates a new process.</p>
+            <h4>Create <span class="tag tag-b">fork() / exec()</span></h4>
+            <p>The OS must be able to create new processes. When a shell receives a command or a user launches an application, the OS is invoked to create a new process. In Unix/Linux this is done via <span class="tag tag-b">fork()</span> which duplicates the calling process and <span class="tag tag-b">exec()</span> which replaces the process image with a new program.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
           <div class="step-body">
-            <h4>Destroy — Forcefully terminate a process</h4>
-            <p>The OS must be able to kill a process that refuses to stop on its own — a crashed app, an infinite loop, or malicious code. In Unix: <span class="tag tag-r">kill()</span>. In Windows: TerminateProcess(). This is the "force quit" of the OS world. Most processes exit on their own via <span class="tag tag-b">exit()</span>, but having a forced destroy option is essential.</p>
+            <h4>Destroy <span class="tag tag-r">kill()</span></h4>
+            <p>The OS provides an interface to forcefully terminate a process that does not exit voluntarily  for example, a process stuck in an infinite loop or one that has become unresponsive. Most processes exit normally via <span class="tag tag-b">exit()</span>; forced termination is a safety mechanism.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>
           <div class="step-body">
-            <h4>Wait — Pause until an event completes</h4>
-            <p>A parent process often needs to wait for its child process to finish before proceeding. In Unix: <span class="tag tag-b">wait()</span> or <span class="tag tag-b">waitpid()</span>. Example: a shell running a command waits for that command to finish before showing the next prompt. This is also how the parent cleans up zombie processes (more on this later).</p>
+            <h4>Wait <span class="tag tag-b">wait() / waitpid()</span></h4>
+            <p>A parent process can pause its own execution until a specific child process completes. This allows orderly parent-child coordination and is the mechanism by which the parent reads the child's exit status and frees the child's PCB (preventing zombie accumulation).</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">4</div>
           <div class="step-body">
-            <h4>Control — Suspend and resume</h4>
-            <p>The OS must be able to temporarily pause a process (suspend) and later continue it (resume). In Unix, signals like <span class="tag tag-y">SIGSTOP</span> and <span class="tag tag-y">SIGCONT</span> do this. Ctrl+Z in a terminal suspends a process — it moves from Running to a stopped state without being killed.</p>
+            <h4>Control <span class="tag tag-y">SIGSTOP / SIGCONT</span></h4>
+            <p>The OS can suspend a running process and later resume it without terminating it. In Unix, sending <span class="tag tag-y">SIGSTOP</span> pauses a process; <span class="tag tag-y">SIGCONT</span> resumes it. This is used by debuggers, shells (Ctrl+Z), and job control systems.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">5</div>
           <div class="step-body">
-            <h4>Status — Query information about a process</h4>
-            <p>Get information about a process's state: is it running, sleeping, stopped? How much CPU has it used? What's its PID? In Unix: <span class="tag tag-b">ps</span>, <span class="tag tag-b">top</span>, <span class="tag tag-b">getpid()</span>. This is what Task Manager and Activity Monitor use to show you the process list.</p>
+            <h4>Status <span class="tag tag-b">getpid() / ps / top</span></h4>
+            <p>The OS exposes interfaces to query the state of a process: its PID, current state (running/sleeping/stopped), CPU usage, memory consumption, and more. Tools like <span class="tag tag-b">ps</span> and <span class="tag tag-b">top</span> use these interfaces to list and monitor running processes.</p>
           </div>
         </div>
       </div>
 
       <div class="tip">
-        <div class="t-label">Design tip</div>
-        <p>The book notes that a good OS provides these APIs as a clean, simple interface — but the implementation underneath (the mechanism) can be very complex. The user/programmer should never need to know those details.</p>
+        <div class="t-label">Design Note</div>
+        <p>The textbook uses <span class="tag tag-b">FR reference</span> (file reference) for I/O. Every process inherits standard file descriptors (stdin, stdout, stderr) automatically  this is part of process creation, not explicit Process API calls.</p>
+      </div>
+
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>List the five operations that every OS Process API must provide. Briefly explain the purpose of each. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">The five core operations are: <br>1. <strong>Create</strong>: Launch a new process (e.g., <code>fork()</code> and <code>exec()</code>).<br>2. <strong>Destroy</strong>: Forcefully terminate a process (e.g., <code>kill()</code>).<br>3. <strong>Wait</strong>: Pause a parent until a child finishes (e.g., <code>wait()</code>).<br>4. <strong>Control</strong>: Suspend/resume a process (e.g., <code>SIGSTOP/SIGCONT</code>).<br>5. <strong>Status</strong>: Query a process's state and resource usage (e.g., <code>ps</code> or <code>top</code>).</div></details>
+          </li>
+          <li>Explain the difference between a process terminating via <code>exit()</code> and being terminated via <code>kill()</code>. Why does the OS need both mechanisms? <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans"><code>exit()</code> is a <em>voluntary</em> termination where a process consciously ends its own execution and cleans up gracefully. <code>kill()</code> is an <em>involuntary</em> termination commanded from the outside (by the OS or another user process) destroying the process forcefully. Both are needed because while processes normally finish their work, some may crash, enter infinite loops, or become malicious, requiring a safety override to stop them.</div></details>
+          </li>
+          <li>Why is the <code>wait()</code> system call important for process management? What problem does it solve? <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">The <code>wait()</code> system call allows parent processes to pause and synchronize with their child processes. Crucially, it solves the problem of resource leaks by collecting the child's exit status. This allows the OS to delete the child's PCB from the process table, preventing the accumulation of "zombie" processes.</div></details>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- SECTION 6: PROCESS CREATION -->
+    <!-- 4.3 PROCESS CREATION -->
     <section class="section" id="s6">
-      <div class="section-badge"><span class="badge-num">§ 4.3</span> How Processes Are Born</div>
-      <h2>Process Creation — From Disk to Running</h2>
+      <div class="section-badge"><span class="badge-num"> 4.3</span> How Processes Are Born</div>
+      <h2>Process Creation</h2>
 
-      <p class="lead">What actually happens between you double-clicking an app and the app appearing on screen? The OS follows a precise sequence of steps every single time.</p>
+      <div class="definition">
+        <div class="def-label">Formal Definitions</div>
+        <p><strong>Eager Loading:</strong> A process loading strategy in which the OS reads the entire program image (code and data) from disk into memory before execution begins. Simple but slow for large programs.</p>
+        <br>
+        <p><strong>Lazy Loading (Demand Paging):</strong> A process loading strategy in which only the portions of the program image that are actually accessed are loaded from disk, and only when needed. Modern operating systems use lazy loading for faster process startup.</p>
+      </div>
 
-      <p>Creating a process is not instantaneous. The OS must carefully set up everything the process needs before it can run a single instruction of your code. Here are the steps in order:</p>
+      <p>When the OS creates a process, it performs a fixed sequence of steps before executing a single instruction of the user's program:</p>
 
       <div class="step-list">
         <div class="step-item">
           <div class="step-num">1</div>
           <div class="step-body">
-            <h4>Load code and data from disk into memory</h4>
-            <p>The OS reads the executable file (e.g. <code>.exe</code> on Windows, ELF binary on Linux) from the hard drive and copies its bytes into the process's address space in RAM. This is essential — the CPU can only execute instructions from RAM, not directly from disk.</p>
-            <br>
-            <p><strong>Eager loading (old way):</strong> Load all code and data upfront before starting. Simple but slow for large programs.</p>
-            <p><strong>Lazy loading (modern way):</strong> Load pages from disk only when the process actually tries to access them. This is called <em>demand paging</em> and makes programs start much faster — you only pay for what you use.</p>
+            <h4>Load the program's code and static data into memory</h4>
+            <p>The OS reads the executable file from disk and loads its instructions (text segment) and initialized data into the process's address space. Modern OSes do this <strong>lazily</strong>  only pages actually accessed are loaded (demand paging), allowing the program to start executing before the entire image is in memory.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
           <div class="step-body">
-            <h4>Allocate the runtime stack</h4>
-            <p>The OS creates the process's <strong>stack</strong> — a fixed-size memory region for function calls. The stack holds: local variables (e.g. <code>int x = 5</code> inside a function), function parameters, and return addresses (where to go back to after a function finishes).</p>
-            <br>
-            <p>The OS also initializes the stack with the program's command-line arguments (<code>argc</code> and <code>argv</code>). When you type <code>ls -la /home</code>, the shell creates a process with <code>argc=3</code> and <code>argv=["ls", "-la", "/home"]</code> on the stack.</p>
+            <h4>Allocate and initialize the runtime stack</h4>
+            <p>The OS allocates a fixed-size memory region for the process's call stack and initializes it with the program's command-line arguments (<code>argc</code> and <code>argv[]</code>). The Stack Pointer register is set to point to the top of this stack.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>
           <div class="step-body">
             <h4>Allocate the heap</h4>
-            <p>The OS sets up the process's <strong>heap</strong> — a memory region for dynamic allocation. Unlike the stack (which has a fixed size), the heap can grow and shrink at runtime. When your program calls <code>malloc()</code> in C or <code>new</code> in C++/Java, it requests memory from the heap.</p>
-            <br>
-            <p>The heap starts small (often just a few pages) and expands as the program requests more. The OS provides the <code>brk()</code> / <code>sbrk()</code> system call to grow it.</p>
+            <p>The OS sets up the process's heap  a dynamic memory region that starts small and grows as the program requests more memory via <code>malloc()</code> or <code>new</code>. The OS provides the <code>brk()</code>/<code>sbrk()</code> system call to extend the heap.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">4</div>
           <div class="step-body">
-            <h4>Set up I/O — open standard file descriptors</h4>
-            <p>Before your code runs a single line, the OS opens three file descriptors automatically:</p>
-            <br>
-            <p><span class="tag tag-b">fd 0 — stdin</span> — Standard input. Connected to the keyboard (or a pipe if you redirect input). Your program reads user input from here.</p>
-            <p><span class="tag tag-g">fd 1 — stdout</span> — Standard output. Connected to the terminal (or a file if you redirect). <code>printf()</code> and <code>cout</code> write here.</p>
-            <p><span class="tag tag-r">fd 2 — stderr</span> — Standard error. Also connected to the terminal. Error messages go here — this way you can redirect stdout to a file without losing error messages.</p>
-            <br>
-            <p>This is why you can immediately use <code>printf()</code> without opening any files — the OS already did it for you.</p>
+            <h4>Set up I/O  open standard file descriptors</h4>
+            <p>Before execution begins, the OS opens three default file descriptors: <span class="tag tag-b">fd 0  stdin</span> (keyboard), <span class="tag tag-g">fd 1  stdout</span> (terminal output), <span class="tag tag-r">fd 2  stderr</span> (error output). The program can use these immediately without explicitly opening them.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">5</div>
           <div class="step-body">
-            <h4>Jump to main() — the process starts running</h4>
-            <p>With everything set up, the OS transfers control to the process's <strong>entry point</strong>: the <code>main()</code> function. The CPU's Program Counter is set to the address of <code>main()</code>, and the process begins executing.</p>
-            <br>
-            <p>At this point, the OS steps back. Your code is running. The OS still watches over it (handling system calls, page faults, etc.) but the process is now alive and in control of its own execution.</p>
+            <h4>Transfer control to the entry point  <code>main()</code></h4>
+            <p>The OS sets the CPU's Program Counter to the address of the <code>main()</code> function and transfers control. From this point, the process is executing. The OS continues to oversee it through system calls and interrupts, but the process is now running independently.</p>
           </div>
         </div>
       </div>
 
+      <!-- §4.3 Diagram: Disk to Memory -->
+      <div class="state-svg-wrap" style="background:#1e2228; border-color:#374151; padding: 32px 28px;">
+        <div style="font-family:var(--mono);font-size:11px;color:#9ca3af;text-align:center;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:28px;">§ 4.3 — Process Creation: Disk to Memory</div>
+
+        <div style="display:flex; gap:40px; align-items:flex-start; justify-content:center; flex-wrap:wrap;">
+
+          <!-- Left: Loading strategy note -->
+          <div style="display:flex; flex-direction:column; justify-content:center; gap:12px; min-width:180px; padding-top:80px;">
+            <div style="display:flex; align-items:flex-start; gap:8px;">
+              <span style="color:#c8922a; font-size:13px; flex-shrink:0; margin-top:1px;">•</span>
+              <p style="font-family:var(--sans); font-size:12.5px; color:#d1d5db; line-height:1.55; margin:0;"><strong style="color:#e5e7eb;">Eagerly:</strong> Load all code and data before starting.</p>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:8px;">
+              <span style="color:#c8922a; font-size:13px; flex-shrink:0; margin-top:1px;">•</span>
+              <p style="font-family:var(--sans); font-size:12.5px; color:#d1d5db; line-height:1.55; margin:0;"><strong style="color:#e5e7eb;">Lazy:</strong> Load pieces on demand during execution.</p>
+            </div>
+          </div>
+
+          <!-- Centre: Disk → Memory → Arrow -->
+          <div style="display:flex; flex-direction:column; align-items:center;">
+
+            <!-- Disk SVG -->
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#374151" stroke="#6b7280" stroke-width="1.5"/>
+              <circle cx="32" cy="32" r="19" fill="#1f2937" stroke="#6b7280" stroke-width="1"/>
+              <circle cx="32" cy="32" r="5" fill="#6b7280"/>
+              <ellipse cx="32" cy="32" rx="25" ry="7" fill="none" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2" opacity="0.5"/>
+            </svg>
+
+            <!-- Dashed vertical connector down to memory -->
+            <div style="width:2px; height:22px; border-left:2px dashed #6b7280;"></div>
+            <!-- Arrowhead into memory -->
+            <div style="width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent; border-top:9px solid #9ca3af; margin-bottom:0;"></div>
+
+            <!-- Memory Block -->
+            <div style="position:relative; width:150px;">
+              <!-- "Memory Block" label on left -->
+              <span style="position:absolute; left:-80px; top:50%; transform:translateY(-50%); font-family:var(--sans); font-size:11.5px; color:#9ca3af; text-align:right; line-height:1.4; width:70px;">Memory<br>Block</span>
+
+              <!-- Stack row -->
+              <div style="background:#4b5563; border:1.5px solid #6b7280; border-bottom:none; padding:15px 10px; min-height:44px;"></div>
+              <!-- Heap row -->
+              <div style="background:#374151; border:1.5px solid #6b7280; border-bottom:none; padding:15px 10px; min-height:44px;"></div>
+              <!-- I/O row -->
+              <div style="background:#2a3040; border:1.5px solid #6b7280; padding:12px 10px; min-height:44px; display:flex; align-items:center; gap:6px;">
+                <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid #9ca3af;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;color:#d1d5db;background:#1f2937;">0</div>
+                <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid #9ca3af;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;color:#d1d5db;background:#1f2937;">1</div>
+                <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid #9ca3af;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;color:#d1d5db;background:#1f2937;">2</div>
+              </div>
+            </div>
+
+            <!-- Arrow out of memory block bottom -->
+            <div style="width:2px; height:22px; border-left:2px dashed #6b7280;"></div>
+            <div style="width:0; height:0; border-left:9px solid transparent; border-right:9px solid transparent; border-top:11px solid #e5e7eb;"></div>
+
+          </div>
+
+          <!-- Right: Labels aligned to each memory row -->
+          <div style="display:flex; flex-direction:column; justify-content:flex-start; gap:0; padding-top:110px; min-width:190px;">
+            <!-- Stack label -->
+            <div style="padding:10px 0 10px; border-bottom:1px solid #374151; min-height:44px; display:flex; flex-direction:column; justify-content:center;">
+              <p style="font-family:var(--mono); font-size:10.5px; color:#e5e7eb; font-weight:700; margin:0; letter-spacing:0.06em;">ALLOCATE STACK</p>
+              <p style="font-family:var(--sans); font-size:11px; color:#9ca3af; margin:3px 0 0; line-height:1.4;">For local variables &amp; params.<br>Initialize argc/argv.</p>
+            </div>
+            <!-- Heap label -->
+            <div style="padding:10px 0 10px; border-bottom:1px solid #374151; min-height:44px; display:flex; flex-direction:column; justify-content:center;">
+              <p style="font-family:var(--mono); font-size:10.5px; color:#e5e7eb; font-weight:700; margin:0; letter-spacing:0.06em;">ALLOCATE HEAP</p>
+              <p style="font-family:var(--sans); font-size:11px; color:#9ca3af; margin:3px 0 0; line-height:1.4;">For dynamic data (malloc).<br>Resizable.</p>
+            </div>
+            <!-- I/O label -->
+            <div style="padding:10px 0 10px; border-bottom:1px solid #374151; min-height:44px; display:flex; flex-direction:column; justify-content:center;">
+              <p style="font-family:var(--mono); font-size:10.5px; color:#e5e7eb; font-weight:700; margin:0; letter-spacing:0.06em;">I/O SETUP</p>
+              <p style="font-family:var(--sans); font-size:11px; color:#9ca3af; margin:3px 0 0; line-height:1.4;">Standard Input, Output,<br>Error (0, 1, 2).</p>
+            </div>
+            <!-- START label -->
+            <div style="padding:10px 0; min-height:44px; display:flex; flex-direction:column; justify-content:center;">
+              <p style="font-family:var(--mono); font-size:10.5px; color:#e5e7eb; font-weight:700; margin:0; letter-spacing:0.06em;">START</p>
+              <p style="font-family:var(--sans); font-size:11px; color:#9ca3af; margin:3px 0 0;">Jump to main().</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
       <div class="exam">
-        <div class="e-label">Exam note</div>
-        <p>You may be asked about eager vs lazy loading. Eager = load everything before starting (simple, but wastes time for large programs). Lazy = load pages on demand as needed (fast start, used by all modern OSes via demand paging). Modern OSes always use lazy loading.</p>
+
+        <div class="e-label">Exam Note</div>
+        <p>The key distinction between loading strategies: <strong>Eager loading</strong>  load all code before starting (simple, wastes time for large programs). <strong>Lazy loading / Demand paging</strong>  load pages only when accessed (fast startup, used by all modern OSes). This distinction is frequently tested.</p>
+      </div>
+
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>Describe the five steps the OS performs to create a new process, in order. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">1. Load program code and static data from disk into memory (often lazily).<br>2. Allocate and initialize the runtime stack (with argv/argc).<br>3. Allocate memory for the heap (for dynamic allocation).<br>4. Initialize basic I/O (open file descriptors for stdin, stdout, stderr).<br>5. Transfer CPU execution control to the program's main() entry point.</div></details>
+          </li>
+          <li>Distinguish between eager loading and lazy loading (demand paging) in process creation. Which do modern OSes use and why? <span class="mark">[4 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans"><strong>Eager loading</strong> reads the entire program executable into memory before execution begins. <strong>Lazy loading</strong> divides the program into pages and only loads the pages precisely when the program attempts to access them. Modern OSes use lazy loading because it vastly improves start-up times, saves memory (by not loading unused features), and allows executing programs larger than available RAM.</div></details>
+          </li>
+          <li>Why does the OS pre-open stdin, stdout, and stderr before the program begins executing? <span class="mark">[2 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">Pre-opening these file descriptors provides a standardized interface for basic IO right out of the box. The program does not have to interface manually with the keyboard or monitor drivers; it can immediately use <code>printf()</code> or <code>cin</code> because the pipes (fd 0, 1, 2) are guaranteed to be connected by the OS from the very first instruction.</div></details>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- SECTION 7: PROCESS STATES -->
+    <!-- 4.4 PROCESS STATES -->
     <section class="section" id="s7">
-      <div class="section-badge"><span class="badge-num">§ 4.4</span> Process Lifecycle</div>
-      <h2>Process States — Where is a Process at Any Moment?</h2>
+      <div class="section-badge"><span class="badge-num"> 4.4</span> Process Lifecycle</div>
+      <h2>Process States</h2>
 
-      <p class="lead">A process is not always running. At any given moment, it is in one of several states. Understanding these states is the key to understanding how the OS manages processes.</p>
-
-      <h3>The Three Core States</h3>
-
-      <div class="three-col">
-        <div class="info-card accent-gold" style="background:#fefce8; border-top-color: #854d0e;">
-          <div class="card-label" style="color:#854d0e;">State 1</div>
-          <h4>Running</h4>
-          <p>The process is <strong>actively executing instructions</strong> on the CPU right now. The CPU's Program Counter points to this process's code. Only <em>one process per CPU core</em> can be in the Running state at a time. This is the only state where actual work gets done.</p>
-        </div>
-        <div class="info-card accent-blue">
-          <div class="card-label">State 2</div>
-          <h4>Ready</h4>
-          <p>The process is <strong>ready and willing to run</strong> but the OS has not yet scheduled it. It's waiting in a ready queue for its turn on the CPU. It could run right now if given the CPU — there's just nothing stopping it except the scheduler hasn't chosen it yet.</p>
-        </div>
-        <div class="info-card" style="border-top: 3px solid var(--ink3);">
-          <div class="card-label" style="color: var(--ink3);">State 3</div>
-          <h4>Blocked</h4>
-          <p>The process is <strong>waiting for an external event</strong> — typically I/O — to complete before it can proceed. A blocked process cannot make progress even if given the CPU, because it's waiting for something outside the CPU (e.g., a disk read, network packet, keyboard input).</p>
-        </div>
+      <div class="definition">
+        <div class="def-label">Formal Definitions  Five Process States</div>
+        <p><strong>New (Start):</strong> The process is being created. The OS is allocating and initializing the PCB, loading the program, and setting up memory. The process has not yet been admitted to the ready queue.</p>
+        <br>
+        <p><strong>Ready:</strong> The process is fully initialized and waiting in the ready queue to be assigned to a CPU. It is capable of executing immediately if a CPU becomes available.</p>
+        <br>
+        <p><strong>Running:</strong> The process is currently executing on the CPU  the CPU's Program Counter points to this process's instructions. Only one process per CPU core can be in the Running state at any moment.</p>
+        <br>
+        <p><strong>Waiting (Blocked):</strong> The process cannot proceed because it is waiting for an external event to complete  typically an I/O operation (disk read, network packet, keyboard input). It cannot use the CPU even if one is free.</p>
+        <br>
+        <p><strong>Terminated:</strong> The process has finished execution (called <code>exit()</code>) or was forcibly killed. Its resources are being freed by the OS. The process may briefly enter the Zombie state before full cleanup.</p>
       </div>
 
-      <div class="analogy">
-        <div class="a-label">Analogy — airport security line</div>
-        <p><strong>Running</strong> = you're at the scanner being processed. <strong>Ready</strong> = you're standing in the queue, fully prepared, just waiting your turn. <strong>Blocked</strong> = you stepped aside because you forgot to take off your shoes — you're not ready to be processed yet, so you're not in the queue. Once you're ready, you rejoin the queue (Ready state).</p>
-      </div>
+      <!-- 5-State Process Diagram from Slide 4.4 -->
+      <div class="state-svg-wrap">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--ink3);text-align:center;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;"> 4.4  Process State Diagram</div>
+        <svg viewBox="0 0 760 310" style="width:100%;max-width:760px;display:block;margin:0 auto;" font-family="'DM Sans', sans-serif">
+          <defs>
+            <marker id="arr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#8a837a"/>
+            </marker>
+          </defs>
+          <!-- State ellipses -->
+          <ellipse cx="80" cy="145" rx="68" ry="28" fill="#fdfaf5" stroke="#d8d0c4" stroke-width="1.5"/>
+          <text x="80" y="141" text-anchor="middle" font-size="12" fill="#4a4540" font-weight="600">Start</text>
+          <text x="80" y="157" text-anchor="middle" font-size="10" fill="#8a837a">/ New</text>
 
-      <div class="state-vis">
-        <div class="sv-state">
-          <div class="sv-name">NEW</div>
-          <div class="sv-desc">Process is being created</div>
-        </div>
-        <div class="sv-arrow">
-          <svg width="30" height="20" viewBox="0 0 30 20"><path d="M2 10h22M20 4l8 6-8 6" stroke="#8a837a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div class="sv-alabel">Admit</div>
-        </div>
-        <div class="sv-state">
-          <div class="sv-name">READY</div>
-          <div class="sv-desc">Waiting for CPU time</div>
-        </div>
-        <div class="sv-arrow">
-          <svg width="30" height="20" viewBox="0 0 30 20"><path d="M2 10h22M20 4l8 6-8 6" stroke="#8a837a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div class="sv-alabel">Scheduled</div>
-        </div>
-        <div class="sv-state running">
-          <div class="sv-name">RUNNING</div>
-          <div class="sv-desc">Executing on CPU now</div>
-        </div>
-        <div class="sv-arrow">
-          <svg width="30" height="20" viewBox="0 0 30 20"><path d="M2 10h22M20 4l8 6-8 6" stroke="#8a837a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div class="sv-alabel">Release / Exit</div>
-        </div>
-        <div class="sv-state">
-          <div class="sv-name">TERMINATED</div>
-          <div class="sv-desc">Finished execution</div>
-        </div>
-      </div>
+          <ellipse cx="265" cy="145" rx="68" ry="28" fill="#fdfaf5" stroke="#d8d0c4" stroke-width="1.5"/>
+          <text x="265" y="149" text-anchor="middle" font-size="13" fill="#4a4540" font-weight="600">Ready</text>
 
-      <h3>All Possible Transitions</h3>
+          <ellipse cx="460" cy="145" rx="68" ry="28" fill="#fefce8" stroke="#c8922a" stroke-width="2"/>
+          <text x="460" y="149" text-anchor="middle" font-size="13" fill="#854d0e" font-weight="700">Running</text>
+
+          <ellipse cx="660" cy="145" rx="72" ry="28" fill="#fdfaf5" stroke="#d8d0c4" stroke-width="1.5"/>
+          <text x="660" y="141" text-anchor="middle" font-size="11" fill="#4a4540" font-weight="600">Termination</text>
+          <text x="660" y="157" text-anchor="middle" font-size="10" fill="#8a837a"></text>
+
+          <ellipse cx="362" cy="258" rx="68" ry="28" fill="#fdfaf5" stroke="#bfb8ae" stroke-width="1.5"/>
+          <text x="362" y="254" text-anchor="middle" font-size="12" fill="#4a4540" font-weight="600">Waiting</text>
+          <text x="362" y="270" text-anchor="middle" font-size="10" fill="#8a837a">(Blocked)</text>
+
+          <!-- Arrows -->
+          <!-- New  Ready: Admit -->
+          <line x1="148" y1="145" x2="193" y2="145" stroke="#8a837a" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="170" y="136" text-anchor="middle" font-size="11" fill="#8a837a">Admit</text>
+
+          <!-- Ready  Running: Dispatch (top) -->
+          <line x1="333" y1="135" x2="392" y2="135" stroke="#4a4540" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="362" y="126" text-anchor="middle" font-size="11" fill="#4a4540" font-weight="500">Dispatch</text>
+
+          <!-- Running  Ready: Pause (bottom) -->
+          <line x1="392" y1="157" x2="333" y2="157" stroke="#8a837a" stroke-width="1.5" marker-end="url(#arr)" stroke-dasharray="4,2"/>
+          <text x="362" y="174" text-anchor="middle" font-size="11" fill="#8a837a">Pause</text>
+
+          <!-- Running  Termination: Release -->
+          <line x1="528" y1="145" x2="585" y2="145" stroke="#8a837a" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="556" y="136" text-anchor="middle" font-size="11" fill="#8a837a">Release</text>
+
+          <!-- Running  Waiting: Event Wait -->
+          <line x1="448" y1="172" x2="405" y2="235" stroke="#8a837a" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="462" y="215" text-anchor="start" font-size="10" fill="#8a837a">Event</text>
+          <text x="462" y="228" text-anchor="start" font-size="10" fill="#8a837a">Wait</text>
+
+          <!-- Waiting  Ready: Event Completion -->
+          <line x1="308" y1="240" x2="263" y2="173" stroke="#8a837a" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="248" y="215" text-anchor="end" font-size="10" fill="#8a837a">Event</text>
+          <text x="248" y="228" text-anchor="end" font-size="10" fill="#8a837a">Completion</text>
+
+          <!-- Caption -->
+          <text x="380" y="302" text-anchor="middle" font-size="11" fill="#8a837a" font-style="italic">A process executes instructions only in the RUNNING state.</text>
+        </svg>
+      </div>
 
       <div class="table-wrap">
-        <div class="table-title">State Transitions</div>
+        <div class="table-title">State Transitions  Summary</div>
         <table>
-          <thead><tr><th>From</th><th>To</th><th>Trigger</th><th>Explanation</th></tr></thead>
+          <thead><tr><th>From</th><th>To</th><th>Trigger</th></tr></thead>
           <tbody>
-            <tr>
-              <td><span class="tag tag-y">New</span></td>
-              <td><span class="tag tag-b">Ready</span></td>
-              <td>OS admits the process</td>
-              <td>Process creation is complete. The OS adds it to the ready queue.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-b">Ready</span></td>
-              <td><span class="tag tag-y">Running</span></td>
-              <td>Scheduler dispatches / schedules it</td>
-              <td>The OS picks this process as the next to run. Its registers are loaded onto the CPU.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-y">Running</span></td>
-              <td><span class="tag tag-b">Ready</span></td>
-              <td>Time slice expired / descheduled</td>
-              <td>The process used its time slice. OS preempts it and gives CPU to another process.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-y">Running</span></td>
-              <td><span class="tag tag-p">Blocked</span></td>
-              <td>Process initiates I/O (disk, network)</td>
-              <td>Process asked for something slow. It can't proceed until the I/O finishes, so it waits.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-p">Blocked</span></td>
-              <td><span class="tag tag-b">Ready</span></td>
-              <td>I/O completes / event arrives</td>
-              <td>The disk/network finished. Process is ready to run again. Goes to ready queue.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-y">Running</span></td>
-              <td><span class="tag tag-g">Terminated</span></td>
-              <td>Process calls exit() or crashes</td>
-              <td>Process is done. Resources start being freed. PCB may temporarily enter Zombie state.</td>
-            </tr>
+            <tr><td><span class="tag tag-y">New</span></td><td><span class="tag tag-b">Ready</span></td><td>OS admits process  creation complete, added to ready queue</td></tr>
+            <tr><td><span class="tag tag-b">Ready</span></td><td><span class="tag tag-y">Running</span></td><td>Scheduler dispatches  OS selects this process; loads its registers onto CPU</td></tr>
+            <tr><td><span class="tag tag-y">Running</span></td><td><span class="tag tag-b">Ready</span></td><td>Pause / preempted  time slice expired; OS saves state + picks another process</td></tr>
+            <tr><td><span class="tag tag-y">Running</span></td><td><span class="tag tag-p">Waiting</span></td><td>Event Wait  process initiates I/O; cannot proceed until I/O completes</td></tr>
+            <tr><td><span class="tag tag-p">Waiting</span></td><td><span class="tag tag-b">Ready</span></td><td>Event Completion  I/O finishes; process re-enters ready queue</td></tr>
+            <tr><td><span class="tag tag-y">Running</span></td><td><span class="tag tag-g">Terminated</span></td><td>Release  process calls exit() or is killed; resources freed</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="exam">
-        <div class="e-label">Critical exam rule</div>
-        <p>A process executes instructions ONLY when it is in the <strong>RUNNING</strong> state. Being "Ready" means it <em>could</em> run — not that it <em>is</em> running. Being "Blocked" means it <em>cannot</em> run even if the CPU is free. Never confuse Ready with Running.</p>
+        <div class="e-label">Critical Exam Rule</div>
+        <p>A process executes instructions <strong>ONLY</strong> in the <strong>RUNNING</strong> state. <strong>Ready</strong> = capable of running but waiting for the CPU. <strong>Waiting/Blocked</strong> = cannot run even if the CPU is free  it is waiting for an external event. Never confuse Ready with Running.</p>
+      </div>
+
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>Draw and explain the five-state process state diagram. For each state, describe what condition the process is in. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans"><em>(Draw diagram with 5 nodes: Start, Ready, Running, Waiting, Terminated, with arrows mapping transitions.)</em><br><strong>New/Start</strong>: Being created, not yet admitted to ready queue. <strong>Ready</strong>: In queue, capable of executing immediately, waiting for CPU. <strong>Running</strong>: Currently executing instructions on the physical CPU. <strong>Waiting/Blocked</strong>: Suspended, unable to run until an external event (like I/O) finishes. <strong>Terminated</strong>: Finished execution, resources being freed.</div></details>
+          </li>
+          <li>List all possible state transitions in the process lifecycle and state the trigger for each transition. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">1. <strong>New → Ready</strong> (Admit): Process finishes initialization.<br>2. <strong>Ready → Running</strong> (Dispatch): Scheduler assigns the CPU to to the process.<br>3. <strong>Running → Ready</strong> (Pause/Preempt): Process's time slice expires or a higher priority task preempts it.<br>4. <strong>Running → Waiting</strong> (Event Wait): Process initiates I/O or requests a lock.<br>5. <strong>Waiting → Ready</strong> (Event Completion): Missing I/O data arrives.<br>6. <strong>Running → Terminated</strong> (Release): Process calls <code>exit()</code> or is killed.</div></details>
+          </li>
+          <li>A process is in the Waiting/Blocked state. Explain why it cannot run even if the CPU is completely idle. <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">A process enters the Blocked state when it requires data from an external, slower device (like a hard drive or network card) to proceed. It lacks the necessary data to execute its next instruction. Therefore, even if an idle CPU were assigned to it, the process would simply stall doing nothing. It must remain blocked until the hardware interrupts the OS to announce the data is ready.</div></details>
+          </li>
+          <li>Distinguish between the Ready state and the Running state. <span class="mark">[2 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">In the <strong>Running</strong> state, the process is currently occupying the CPU hardware and actively executing machine instructions. In the <strong>Ready</strong> state, the process <em>wants</em> to execute and has all data it needs, but it is waiting in a queue because the CPU is currently occupied by another process.</div></details>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- SECTION 8: TRACING -->
+    <!-- 4.5 TRACING PROCESS STATES -->
     <section class="section" id="s8">
-      <div class="section-badge"><span class="badge-num">§ 4.5</span> Worked Examples</div>
-      <h2>Tracing Process States — Seeing It in Action</h2>
+      <div class="section-badge"><span class="badge-num"> 4.5</span> Tracing Process States</div>
+      <h2>Tracing Process States  CPU Activity Over Time</h2>
 
-      <p class="lead">The best way to understand process states is to trace through a concrete example. The textbook gives two scenarios — one simple, one more realistic.</p>
+      <p>The following two scenarios trace how the OS manages two processes. They directly correspond to Figures 4.3 and 4.4 in the textbook and your course slides.</p>
 
-      <h3>Scenario 1: CPU Only (No I/O)</h3>
-      <p>Two processes. Process 0 runs to completion, then Process 1 runs. No I/O involved. Simple, sequential.</p>
+      <h3>Scenario 1  CPU Only (No I/O) <span style="font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink3)">Figure 4.3</span></h3>
+      <p>Process runs to completion before Process begins. No I/O is involved. The CPU is never idle, but CPU utilization is suboptimal because P waits with nothing to do for 4 time units while P finishes.</p>
 
       <div class="table-wrap">
-        <div class="table-title">Figure 4.3 — CPU Only</div>
+        <div class="table-title">Figure 4.3  Tracing Process State: CPU Only</div>
         <table>
-          <thead><tr><th>Time</th><th>Process₀</th><th>Process₁</th><th>What's happening</th></tr></thead>
+          <thead><tr><th>Time</th><th>Process</th><th>Process</th><th>Notes</th></tr></thead>
           <tbody>
-            <tr><td>1</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ has the CPU and is executing</td></tr>
-            <tr><td>2</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ still running, P₁ waits patiently</td></tr>
-            <tr><td>3</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ still going</td></tr>
-            <tr><td>4</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ finishes and exits</td></tr>
-            <tr><td>5</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ now gets the CPU</td></tr>
-            <tr><td>6</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ running</td></tr>
-            <tr><td>7</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ running</td></tr>
-            <tr><td>8</td><td>—</td><td class="td-run">Running</td><td class="td-note">P₁ finishes</td></tr>
+            <tr><td>1</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P executing on CPU</td></tr>
+            <tr><td>2</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P continues</td></tr>
+            <tr><td>3</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P continues</td></tr>
+            <tr><td>4</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P finishes  exits</td></tr>
+            <tr><td>5</td><td></td><td class="td-run">Running</td><td class="td-note">P now gets the CPU</td></tr>
+            <tr><td>6</td><td></td><td class="td-run">Running</td><td class="td-note">P running</td></tr>
+            <tr><td>7</td><td></td><td class="td-run">Running</td><td class="td-note">P running</td></tr>
+            <tr><td>8</td><td></td><td class="td-run">Running</td><td class="td-note">P finishes</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>This is simple but <strong>inefficient</strong> — P₁ was just sitting in Ready state doing nothing for 4 time units. What if P₀ had needed to read from disk?</p>
+      <h3>Scenario 2  CPU and I/O <span style="font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink3)">Figure 4.4</span></h3>
+      <p>Process initiates an I/O operation at time 3. Rather than letting the CPU sit idle during the I/O wait, the OS immediately runs Process. This is the key insight of the Blocked state: <strong>the OS maximizes CPU utilization by switching to another process when one blocks for I/O</strong>.</p>
 
-      <div class="fancy-divider"><span>vs</span></div>
+      <!-- Gantt Chart from Slide 4.5 -->
+      <div class="gantt-wrap">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;"> 4.5  CPU Activity Trace (Figure 4.4)</div>
+        <div class="gantt-grid">
+          <div class="gantt-hdr" style="text-align:right;padding-right:8px;">TIME </div>
+          <div class="gantt-hdr">1</div><div class="gantt-hdr">2</div><div class="gantt-hdr">3</div>
+          <div class="gantt-hdr">4</div><div class="gantt-hdr">5</div><div class="gantt-hdr">6</div>
+          <div class="gantt-hdr">7</div><div class="gantt-hdr">8</div><div class="gantt-hdr">9</div><div class="gantt-hdr">10</div>
 
-      <h3>Scenario 2: CPU + I/O (The Smart Way)</h3>
-      <p>Process 0 starts, then requests I/O (e.g., reads a file from disk). I/O is slow — it takes 3 time units. Instead of wasting those 3 units, the OS runs Process 1. This is the whole point of the Blocked state.</p>
+          <div class="gantt-lbl">PROCESS A</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-blk">BLK</div>
+          <div class="gantt-cell gc-blk">BLK</div>
+          <div class="gantt-cell gc-blk">BLK</div>
+          <div class="gantt-cell gc-rdy">RDY</div>
+          <div class="gantt-cell gc-rdy">RDY</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-run">RUN</div>
+
+          <div class="gantt-lbl">PROCESS B</div>
+          <div class="gantt-cell gc-nil"></div>
+          <div class="gantt-cell gc-nil"></div>
+          <div class="gantt-cell gc-nil"></div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-run">RUN</div>
+          <div class="gantt-cell gc-nil"></div>
+          <div class="gantt-cell gc-nil"></div>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);margin-top:14px;font-style:italic;text-align:center;">BLK = Blocked (I/O), RDY = Ready, RUN = Running. CPU kept busy while A waits for I/O (times 48).</p>
+      </div>
 
       <div class="table-wrap">
-        <div class="table-title">Figure 4.4 — CPU and I/O (OS keeps CPU busy!)</div>
+        <div class="table-title">Figure 4.4  Tracing Process State: CPU and I/O</div>
         <table>
-          <thead><tr><th>Time</th><th>Process₀</th><th>Process₁</th><th>What's happening</th></tr></thead>
+          <thead><tr><th>Time</th><th>Process</th><th>Process</th><th>Notes</th></tr></thead>
           <tbody>
-            <tr><td>1</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ executing</td></tr>
-            <tr><td>2</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P₀ executing</td></tr>
-            <tr><td>3</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note"><strong>P₀ initiates a disk read!</strong></td></tr>
-            <tr><td>4</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">P₀ waits for disk → OS immediately runs P₁</td></tr>
-            <tr><td>5</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">Disk is still reading... P₁ uses CPU</td></tr>
-            <tr><td>6</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">Disk still reading... P₁ continues</td></tr>
-            <tr><td>7</td><td class="td-ready">Ready</td><td class="td-run">Running</td><td class="td-note">Disk done! P₀ moves to Ready. P₁ still gets to finish its turn.</td></tr>
-            <tr><td>8</td><td class="td-ready">Ready</td><td class="td-run">Running</td><td class="td-note">P₁ finishes</td></tr>
-            <tr><td>9</td><td class="td-run">Running</td><td>—</td><td class="td-note">P₀ gets CPU back, resumes exactly where it left off</td></tr>
-            <tr><td>10</td><td class="td-run">Running</td><td>—</td><td class="td-note">P₀ finishes</td></tr>
+            <tr><td>1</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P executing</td></tr>
+            <tr><td>2</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P executing</td></tr>
+            <tr><td>3</td><td class="td-run">Running</td><td class="td-ready">Ready</td><td class="td-note">P initiates I/O  transitions to Blocked</td></tr>
+            <tr><td>4</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">P waiting for I/O; OS immediately runs P</td></tr>
+            <tr><td>5</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">I/O in progress; P uses CPU productively</td></tr>
+            <tr><td>6</td><td class="td-blocked">Blocked</td><td class="td-run">Running</td><td class="td-note">I/O completes; P moves to Ready</td></tr>
+            <tr><td>7</td><td class="td-ready">Ready</td><td class="td-run">Running</td><td class="td-note">P in ready queue; P finishes its turn</td></tr>
+            <tr><td>8</td><td class="td-ready">Ready</td><td class="td-run">Running</td><td class="td-note">P now done</td></tr>
+            <tr><td>9</td><td class="td-run">Running</td><td></td><td class="td-note">P resumes exactly where it left off</td></tr>
+            <tr><td>10</td><td class="td-run">Running</td><td></td><td class="td-note">P finishes</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="definition">
         <div class="def-label">Key Takeaway</div>
-        <p>The OS <strong>maximizes CPU utilization</strong> by switching to another process whenever one blocks for I/O. Rather than letting the CPU sit idle waiting for a slow disk, it immediately puts that CPU to productive use. Without this, a single disk read would waste the entire machine.</p>
+        <p>The OS <strong>maximizes CPU utilization</strong> by switching to another process whenever one blocks for I/O. Without this, the CPU would sit idle during every disk read or network wait  a massive waste of computing resources. This is the core motivation for the Blocked/Waiting state.</p>
       </div>
 
-      <p>Notice how P₀ resumed from exactly where it left off at time 9. That's the magic of saving and restoring machine state — P₀ never knew it was paused. From P₀'s perspective, the disk read just took a moment, when in reality three other things happened during that time.</p>
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>Using a time trace similar to Figures 4.3 and 4.4, show the state of two processes over 8 time units where Process A performs an I/O operation at time 3 that takes 3 units to complete. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans"><em>Time 1</em>: A (Run) B (Ready)<br><em>Time 2</em>: A (Run) B (Ready)<br><em>Time 3</em>: A (Run - Initiates I/O) B (Ready)<br><em>Time 4</em>: A (Blocked) B (Run)<br><em>Time 5</em>: A (Blocked) B (Run)<br><em>Time 6</em>: A (Blocked -> I/O Finishes, becomes Ready) B (Run)<br><em>Time 7</em>: A (Ready) B (Run)<br><em>Time 8</em>: A (Ready) B (Finished)</div></details>
+          </li>
+          <li>Compare the CPU utilization in the CPU-only scenario (Figure 4.3) versus the CPU+I/O scenario (Figure 4.4). Why is the OS design in Figure 4.4 more efficient? <span class="mark">[3 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">Without I/O awareness (Figure 4.3 or a system without a <em>Blocked</em> state), if a process paused for a slow desk read, the CPU would simply sit idle. The design in Figure 4.4 is more efficient because the OS puts the I/O-waiting process into a Blocked state and immediately switches to another process. This ensures the CPU is constantly executing useful work, maximizing total throughput.</div></details>
+          </li>
+          <li>In Figure 4.4, why does Process A resume at exactly the instruction where it left off, despite having been paused for 6 time units? <span class="mark">[2 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">Because of the <strong>Context Switch</strong> mechanism. When process A was paused at time 3, the OS saved its Program Counter and all registers into its Process Control Block (PCB). At time 9, the OS copied those exact values back into the CPU registers, making A completely oblivious to the passage of time.</div></details>
+          </li>
+        </ol>
+      </div>
     </section>
 
-    <!-- SECTION 9: THE PCB -->
+    <!-- 4.5 PCB + CONTEXT SWITCH + ZOMBIE -->
     <section class="section" id="s9">
-      <div class="section-badge"><span class="badge-num">§ 4.5</span> Data Structures</div>
-      <h2>The Process Control Block (PCB)</h2>
+      <div class="section-badge"><span class="badge-num"> 4.5</span> Data Structures</div>
+      <h2>The Process Control Block (PCB) and Context Switch</h2>
 
-      <p class="lead">The OS tracks every single process using a data structure called the Process Control Block. This is the OS's "dossier" on each process — everything it needs to know to manage it.</p>
+      <div class="definition">
+        <div class="def-label">Formal Definitions</div>
+        <p><strong>Process Control Block (PCB):</strong> A kernel data structure that stores all information the OS needs to manage a single process. There is exactly one PCB per process. The OS maintains a list (process table) of all PCBs for all existing processes.</p>
+        <br>
+        <p><strong>Context Switch:</strong> The mechanism by which the OS saves the machine state (registers) of the currently running process into its PCB, and restores the machine state of another process from that process's PCB, effectively switching CPU execution from one process to another. It is a <em>mechanism</em>, not a policy.</p>
+        <br>
+        <p><strong>Zombie State:</strong> A process that has completed execution (called <code>exit()</code>) but whose PCB has not yet been removed because the parent process has not called <code>wait()</code> to collect its exit status. A zombie holds no memory or CPU resources  only a PCB entry with its PID and exit code.</p>
+      </div>
 
-      <p>For the OS to switch between processes (context switch), pause them, resume them, and track their state, it needs to store information about each process somewhere. That somewhere is the <strong>PCB</strong> — one PCB per process, stored in the OS kernel.</p>
-
-      <p>In the textbook (xv6, a teaching OS), the PCB is defined as:</p>
+      <p>The OS tracks every process in a list using a PCB. The table below shows the <code>xv6</code> teaching OS implementation of the PCB:</p>
 
       <div class="code-wrap">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
-          <div class="code-filename">proc.h — Process Control Block (PCB)</div>
+          <div class="code-filename">proc.h  Process Control Block (xv6)</div>
         </div>
         <pre><span class="kw">struct</span> <span class="tp">proc</span> {
     <span class="cm">/* State this process is in */</span>
     <span class="kw">enum</span> <span class="tp">proc_state</span>  <span class="fd">state</span>;    <span class="cm">// RUNNING, READY, BLOCKED, ZOMBIE, etc.</span>
 
-    <span class="cm">/* Saved CPU registers — stored here during a context switch */</span>
-    <span class="kw">struct</span> <span class="tp">context</span>   <span class="fd">context</span>;  <span class="cm">// Contains PC, SP, and all general registers</span>
+    <span class="cm">/* Saved CPU registers  stored here during a context switch */</span>
+    <span class="kw">struct</span> <span class="tp">context</span>   <span class="fd">context</span>;  <span class="cm">// Contains PC, SP, and all general-purpose registers</span>
 
     <span class="cm">/* Memory */</span>
-    <span class="kw">char</span>             <span class="fd">*mem</span>;     <span class="cm">// Pointer to start of process address space</span>
+    <span class="kw">char</span>             <span class="fd">*mem</span>;     <span class="cm">// Pointer to start of process address space in RAM</span>
 
     <span class="cm">/* Process relationships */</span>
-    <span class="kw">struct</span> <span class="tp">proc</span>     <span class="fd">*parent</span>;  <span class="cm">// Pointer to the parent process (who created this)</span>
+    <span class="kw">struct</span> <span class="tp">proc</span>     <span class="fd">*parent</span>;  <span class="cm">// Pointer to parent process (creator)</span>
 
     <span class="cm">/* Identifier */</span>
-    <span class="kw">int</span>              <span class="fd">pid</span>;      <span class="cm">// Process ID — unique number for this process</span>
+    <span class="kw">int</span>              <span class="fd">pid</span>;      <span class="cm">// Process ID  unique integer assigned by the OS</span>
 };</pre>
       </div>
-
-      <h3>What Each Field Does</h3>
 
       <div class="three-col">
         <div class="info-card accent-gold">
           <div class="card-label">state</div>
-          <h4>Current state</h4>
-          <p>Which state is this process in right now? RUNNING, READY, BLOCKED, or ZOMBIE. The OS updates this field constantly as the process moves between states.</p>
+          <h4>Current State</h4>
+          <p>The process's current state enum: RUNNING, READY, BLOCKED, or ZOMBIE. Updated by the OS at every state transition.</p>
         </div>
         <div class="info-card accent-red">
           <div class="card-label">context</div>
-          <h4>Saved registers</h4>
-          <p>When the OS does a context switch (pauses this process), it dumps all the CPU registers here. When this process runs again, it loads them back. This is how the process resumes seamlessly from where it left off.</p>
+          <h4>Saved Registers</h4>
+          <p>On every context switch, all CPU registers (including PC and SP) are saved here. When this process runs again, they are restored exactly  this is how seamless resumption is achieved.</p>
         </div>
         <div class="info-card accent-blue">
-          <div class="card-label">mem</div>
-          <h4>Memory pointer</h4>
-          <p>A pointer to the start of this process's address space. The OS uses this to know where in physical RAM this process's memory lives.</p>
+          <div class="card-label">mem / pid / parent</div>
+          <h4>Identity &amp; Memory</h4>
+          <p><code>mem</code>: pointer to address space. <code>pid</code>: unique process ID (init = PID 1). <code>parent</code>: pointer to the process that created this one  used for <code>wait()</code> and zombie cleanup.</p>
         </div>
       </div>
 
-      <div class="two-col">
-        <div class="info-card accent-brown">
-          <div class="card-label">parent</div>
-          <h4>Parent process</h4>
-          <p>Every process (except the first — <code>init</code>) has a parent. This pointer tracks who created this process. The parent-child relationship is important for <code>wait()</code> and zombie cleanup.</p>
-        </div>
-        <div class="info-card accent-green">
-          <div class="card-label">pid</div>
-          <h4>Process ID</h4>
-          <p>A unique integer assigned to each process. The first process (init) gets PID 1. Every new process gets the next available number. <code>ps</code> and Task Manager display PIDs. You use them with <code>kill &lt;pid&gt;</code>.</p>
-        </div>
-      </div>
-
-      <div class="tip">
-        <div class="t-label">Context switch detail</div>
-        <p>During a context switch from process A to B: (1) Save A's CPU registers into A's PCB.context. (2) Update A's PCB.state to READY. (3) Load B's registers from B's PCB.context into the CPU. (4) Update B's PCB.state to RUNNING. The CPU now continues from B's saved Program Counter — B picks up exactly where it left off.</p>
-      </div>
-    </section>
-
-    <!-- SECTION 10: ZOMBIE STATE -->
-    <section class="section" id="s10">
-      <div class="section-badge"><span class="badge-num">★ EXAM</span> Critical Concept</div>
-      <h2>The Zombie State — Dead but Not Gone</h2>
-
-      <p class="lead">One of the most frequently tested concepts in this chapter: what happens to a process after it calls exit()? The answer is more interesting than "it disappears."</p>
-
-      <p>When a process calls <code>exit()</code> — either explicitly or by returning from main() — you might think it simply disappears. In reality, it enters a special state called <strong>ZOMBIE</strong>.</p>
-
-      <div class="definition">
-        <div class="def-label">Definition — Zombie State</div>
-        <p>A process that has <strong>finished executing</strong> (called exit()) but whose <strong>PCB has not yet been cleaned up</strong> by its parent process. It is dead, but its entry still exists in the process table.</p>
-      </div>
-
-      <h3>Why Does the Zombie State Exist?</h3>
-      <p>When a child process exits, it may have important information the parent needs:</p>
-
+      <h3>Context Switch  Formal Procedure</h3>
       <div class="step-list">
         <div class="step-item">
           <div class="step-num">1</div>
           <div class="step-body">
-            <h4>Child calls exit(status_code)</h4>
-            <p>The child process finishes and calls <code>exit(0)</code> (success) or <code>exit(1)</code> (failure). The OS needs to preserve this exit status code somewhere so the parent can read it later. That "somewhere" is the PCB — which is why the PCB can't be deleted yet.</p>
+            <h4>Save current process (A) state</h4>
+            <p>The OS writes all CPU registers (PC, SP, general registers) from the CPU into Process A's <code>PCB.context</code>. Process A's state is updated to READY (or BLOCKED).</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Select next process (B)</h4>
+            <p>The scheduling policy selects which process to run next (this is the policy's decision  not the context switch mechanism's concern).</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Restore selected process (B) state</h4>
+            <p>The OS loads all registers from Process B's <code>PCB.context</code> back into the CPU. Process B's state is updated to RUNNING. The CPU's Program Counter now points to wherever B left off  B resumes seamlessly.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>The Zombie State</h3>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Child process calls exit(status_code)</h4>
+            <p>Execution ends. The OS frees the process's address space (RAM), open file descriptors, and other resources. However, the PCB cannot be deleted yet  it holds the exit status code that the parent may need.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
           <div class="step-body">
             <h4>Process enters ZOMBIE state</h4>
-            <p>The OS frees most of the process's resources — its address space (RAM), open file descriptors, etc. — but keeps the PCB alive. The process is "mostly dead." It cannot run, it has no memory, but it still has an entry in the process table with its PID and exit status.</p>
+            <p>The process is "mostly dead"  it has no memory, cannot execute, yet its PCB entry (with PID and exit code) still exists in the process table. It is visible in <code>ps</code> output.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>
           <div class="step-body">
-            <h4>Parent calls wait() to collect the exit status</h4>
-            <p>When the parent process calls <code>wait()</code> or <code>waitpid()</code>, the OS gives the parent the child's exit status. The OS then completely removes the child's PCB. The process is now fully gone — no longer a zombie.</p>
+            <h4>Parent calls wait()  PCB is deleted</h4>
+            <p>When the parent calls <code>wait()</code>, the OS delivers the child's exit status to the parent and completely removes the child's PCB. The zombie is fully cleaned up.</p>
           </div>
         </div>
         <div class="step-item">
-          <div class="step-num" style="background: var(--accent);">!</div>
+          <div class="step-num" style="background:var(--accent);">!</div>
           <div class="step-body">
             <h4>Problem: Parent never calls wait()</h4>
-            <p>If the parent process never calls <code>wait()</code>, the zombie lingers forever (until the parent itself dies). A zombie consumes an entry in the process table. If thousands of zombies accumulate, the process table fills up and the system can't create new processes — a denial-of-service attack or serious bug.</p>
+            <p>If the parent does not call <code>wait()</code>, the zombie's PCB persists until the parent itself exits. If thousands of zombies accumulate, the process table fills, preventing the creation of new processes  a resource exhaustion bug or attack.</p>
           </div>
         </div>
       </div>
 
-      <div class="analogy">
-        <div class="a-label">Analogy</div>
-        <p>Think of a zombie process like an employee who quit their job but whose name is still on the payroll database. The company (OS) keeps their record so management (the parent) can do their exit interview and final paperwork (read the exit status). Once the exit interview is done (parent calls wait()), the record is deleted. If management never does the exit interview, the record stays forever — wasting database space.</p>
+      <div class="exam">
+        <div class="e-label">Exam Definition to Memorize</div>
+        <p><strong>Zombie state:</strong> A process that has called <code>exit()</code> and finished executing, but whose PCB entry has not yet been removed because its parent process has not called <code>wait()</code>. The zombie holds no memory or file descriptors  only a PCB entry with PID and exit status.</p>
       </div>
 
-      <div class="exam">
-        <div class="e-label">Exam definition to memorize</div>
-        <p><strong>Zombie state:</strong> A process that has called exit() and finished executing, but whose PCB entry has not yet been removed by its parent process. The parent must call wait() to collect the exit status, after which the OS removes the PCB completely. A zombie holds no memory or file descriptors — only a PCB entry with PID and exit status.</p>
+      <div class="practice">
+        <div class="p-label">Practice Questions</div>
+        <ol>
+          <li>What is a Process Control Block (PCB)? List the information it stores and explain the purpose of each field. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">A <strong>PCB</strong> is a kernel data structure that tracks all information for a single process. Key traits include:<br>1. <strong>State</strong>: Current process status (Ready, Running, Blocked, etc.) used by the scheduler.<br>2. <strong>Context</strong>: The saved CPU registers (PC, SP, etc.) used to pause and resume the process.<br>3. <strong>Memory Pointers</strong>: Locations mapping the process address space (code/data/heap).<br>4. <strong>Parent</strong>: A pointer to the creating process for signalling completion via <code>wait()</code>.<br>5. <strong>PID</strong>: The numerical identifier for OS management.</div></details>
+          </li>
+          <li>Define a context switch. Describe the exact steps the OS performs during a context switch from Process A to Process B. <span class="mark">[5 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">A context switch swaps the CPU from one running process to another without destroying either. Steps:<br>1. Stop executing Process A.<br>2. Copy Process A's current CPU registers into A's PCB (saving state).<br>3. Change A's state to Ready or Blocked.<br>4. Run scheduling policy to select Process B.<br>5. Change B's state to Running.<br>6. Load registers from B's PCB onto the CPU hardware.<br>7. Execution seamlessly resumes at B's restored Program Counter.</div></details>
+          </li>
+          <li>What is a zombie process? Explain why it exists and what happens if the parent process never calls <code>wait()</code>. <span class="mark">[4 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">A zombie process is a process that has finished execution (called <code>exit()</code>) but whose PCB still exists in the OS process table. It exists to store the exit status code. The zombie only dies when the parent process calls <code>wait()</code> to read those exit details. If the parent forgets to ever call it, the PCB stays in RAM forever. If thousands accumulate, it exhausts system PID allocation and limits creating new processes.</div></details>
+          </li>
+          <li>Is the context switch a mechanism or a policy? Justify your answer. <span class="mark">[2 marks]</span>
+            <details><summary>Show Answer</summary><div class="ans">It is fundamentally a <strong>mechanism</strong>. The context switch is a procedural implementation that knows exactly <em>how</em> to save and restore registers. It performs this low-level swap without caring <em>which</em> process is selected or <em>why</em> it was stopped. The logic to decide who to switch to belongs to the scheduling <em>policy</em>.</div></details>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- SUMMARY -->
+    <!-- EXAM SUMMARY -->
     <section class="section" id="summary">
-      <div class="section-badge"><span class="badge-num">★</span> Exam Summary</div>
-      <h2>Chapter 4 — Complete Exam Summary</h2>
+      <div class="section-badge"><span class="badge-num"></span> Exam Summary</div>
+      <h2>Chapter 4  Key Terms Glossary &amp; Exam Guide</h2>
 
-      <p class="lead">Everything you need to know for your exam, condensed and organized by importance.</p>
+      <p>The following glossary covers every term your teacher identified as likely exam topics. Mark distribution patterns: <strong>5+5</strong> or <strong>3+3+4</strong>.</p>
 
-      <div class="big-number-grid">
-        <div class="big-num-item">
-          <div class="the-num">3</div>
-          <div class="the-label">Core process states<br>(Running, Ready, Blocked)</div>
-        </div>
-        <div class="big-num-item">
-          <div class="the-num">5</div>
-          <div class="the-label">Steps in process creation<br>(Load→Stack→Heap→I/O→main)</div>
-        </div>
-        <div class="big-num-item">
-          <div class="the-num">5</div>
-          <div class="the-label">Process API operations<br>(Create, Destroy, Wait, Control, Status)</div>
-        </div>
-      </div>
-
-      <h3>The 10 Things You Must Know</h3>
-
-      <div class="step-list">
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <h4>Process = running program</h4>
-            <p>A program is passive bytes on disk. A process is an active, running instance. The OS transforms one into the other. One program can spawn multiple processes.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <h4>CPU virtualization via time sharing</h4>
-            <p>The OS rapidly switches between processes (time slicing) to create the illusion that all programs run simultaneously. Each gets a small time slice. Cost: performance overhead on each switch.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <h4>Mechanism (HOW) vs Policy (WHICH)</h4>
-            <p>Context switch = mechanism (how to switch). Scheduling algorithm = policy (who runs next). Keep them separate so you can change the policy without rewriting the mechanism.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">4</div>
-          <div class="step-body">
-            <h4>Machine state: 3 components</h4>
-            <p>Every process has: (1) Address space (private memory with code, data, stack, heap), (2) Registers (PC, SP, general regs), (3) I/O info (open file descriptors). All must be saved/restored on context switch.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">5</div>
-          <div class="step-body">
-            <h4>Process creation order</h4>
-            <p>1→ Load code/data. 2→ Allocate stack (+ set argc/argv). 3→ Allocate heap. 4→ Set up stdin/stdout/stderr. 5→ Jump to main(). Modern OSes load lazily (demand paging) not eagerly.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">6</div>
-          <div class="step-body">
-            <h4>3 states: Running, Ready, Blocked</h4>
-            <p>Running = actively on CPU. Ready = wants CPU, waiting in queue. Blocked = waiting for I/O, can't run. Process executes instructions ONLY in the Running state.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">7</div>
-          <div class="step-body">
-            <h4>OS maximizes CPU by using I/O blocking</h4>
-            <p>When process A blocks for I/O, the OS immediately runs process B. This keeps the CPU busy instead of idle. When A's I/O finishes, A moves back to Ready, eventually Running again.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">8</div>
-          <div class="step-body">
-            <h4>PCB — Process Control Block</h4>
-            <p>The OS's data structure for each process. Contains: state, context (saved registers), mem (address space pointer), parent pointer, pid. Registers are saved here during every context switch.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num" style="background:var(--accent);">★</div>
-          <div class="step-body">
-            <h4>Zombie state (exam favourite!)</h4>
-            <p>When a process calls exit(), it enters ZOMBIE state. It's done running but its PCB stays until the parent calls wait(). The PCB holds the exit status code. If parent never calls wait(), the zombie persists — wasting a process table entry.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">10</div>
-          <div class="step-body">
-            <h4>Context switch saves &amp; restores the machine state</h4>
-            <p>To switch from A to B: save A's registers into A's PCB → mark A as Ready → load B's registers from B's PCB → mark B as Running → CPU continues from B's saved PC. B never knew it was paused.</p>
-          </div>
-        </div>
+      <div class="table-wrap">
+        <div class="table-title">Formal Glossary  Chapter 4 Key Terms</div>
+        <table>
+          <thead><tr><th>Term</th><th>Formal Definition</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="gloss-term">Process</td>
+              <td class="gloss-def">A program in execution. An active entity comprising the program's instructions, its current execution state (registers, PC), and resources in use (memory, I/O).</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Program</td>
+              <td class="gloss-def">A static collection of instructions and data stored on disk. A passive entity with no execution state of its own.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">CPU Virtualization</td>
+              <td class="gloss-def">The OS technique of creating the illusion that each process has its own dedicated CPU core by rapidly time-multiplexing the physical CPU among all running processes.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Time Sharing</td>
+              <td class="gloss-def">A CPU resource allocation strategy in which the CPU is divided into small time slices and rapidly switched among processes. Cost: a performance hit at each switch.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Mechanism</td>
+              <td class="gloss-def">A low-level OS protocol that implements how an action is performed. Contains no decision logic. Example: context switch.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Policy</td>
+              <td class="gloss-def">A high-level OS algorithm that decides which action to take and when. Uses mechanisms to enforce decisions. Example: scheduling policy.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Machine State</td>
+              <td class="gloss-def">The complete information that defines a process's execution context: (1) Address Space, (2) CPU Registers (PC, SP), (3) I/O Information (open file descriptors).</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Context Switch</td>
+              <td class="gloss-def">The mechanism of saving the current process's registers into its PCB and loading another process's registers from its PCB, switching CPU execution between processes.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">PCB</td>
+              <td class="gloss-def">Process Control Block. The OS kernel data structure tracking one process. Fields: state, context (saved registers), mem (address space pointer), parent, pid.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Process States</td>
+              <td class="gloss-def">Five states: New (being created), Ready (waiting for CPU), Running (on CPU now), Waiting/Blocked (waiting for I/O), Terminated (finished).</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Zombie State</td>
+              <td class="gloss-def">A process that has called exit() and finished executing but whose PCB persists because the parent has not called wait() to collect its exit status.</td>
+            </tr>
+            <tr>
+              <td class="gloss-term">Demand Paging</td>
+              <td class="gloss-def">Lazy loading strategy: program pages are loaded from disk only when they are first accessed, rather than all at startup (eager loading). Used by all modern OSes.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="exam">
-        <div class="e-label">Top exam traps to avoid</div>
+        <div class="e-label">Common Exam Traps  Do Not Make These Mistakes</div>
         <p>
-          1. "Ready" ≠ "Running" — Ready means waiting for CPU, not executing.<br>
-          2. A Blocked process cannot run even if the CPU is free — it's waiting for I/O, not for CPU.<br>
-          3. Zombie ≠ "crashed" — A zombie finished normally (called exit) but parent hasn't called wait yet.<br>
-          4. Lazy loading is the modern standard — not eager loading.<br>
-          5. Mechanism and policy are separate — never say "context switch is a policy" (it's a mechanism).
+          <strong>1.</strong> "Ready"  "Running"  Ready means waiting for the CPU, not executing on it.<br>
+          <strong>2.</strong> A Blocked process <em>cannot</em> run even if the CPU is completely free  it is waiting for an I/O event, not for the CPU.<br>
+          <strong>3.</strong> Zombie  crashed process  A zombie is a process that exited <em>normally</em> but hasn't been cleaned up by its parent yet.<br>
+          <strong>4.</strong> Context switch is a <em>mechanism</em>  never say it is a policy. The scheduling algorithm is the policy.<br>
+          <strong>5.</strong> Lazy loading (demand paging) is the modern standard  not eager loading.<br>
+          <strong>6.</strong> One program can spawn many processes  they are not the same thing.
         </p>
       </div>
 
-      <div class="tip">
-        <div class="t-label">You've got this!</div>
-        <p>You've covered every concept in Chapter 4. The process abstraction is the foundation for everything else in the course — scheduling, memory management, concurrency. Master these concepts and the rest becomes much easier.</p>
+      <div class="two-col">
+        <div class="info-card accent-red">
+          <div class="card-label">5+5 Pattern  Expect These</div>
+          <h4>Full Explanation Questions</h4>
+          <p>Q: Explain the concept of a process and how it differs from a program. <em>[5]</em><br><br>
+          Q: Define context switch and describe the steps involved. <em>[5]</em><br><br>
+          Q: Draw and explain the process state diagram. <em>[5]</em></p>
+        </div>
+        <div class="info-card accent-blue">
+          <div class="card-label">3+3+4 Pattern  Expect These</div>
+          <h4>Multi-part Questions</h4>
+          <p>Q: (a) Define PCB and list its fields. <em>[3]</em> (b) What is a zombie state? <em>[3]</em> (c) Trace process states for two processes with I/O. <em>[4]</em><br><br>
+          Q: (a) Define mechanism. <em>[3]</em> (b) Define policy. <em>[3]</em> (c) Classify: context switch, round-robin scheduling, demand paging. <em>[4]</em></p>
+        </div>
       </div>
 
     </section>
 
   </div>
 </main>
+
 
 <script>
   const progress = document.getElementById('progress');
